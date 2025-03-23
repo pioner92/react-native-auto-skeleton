@@ -6,7 +6,7 @@
 #import "../generated/RNAutoSkeletonViewSpec/RCTComponentViewHelpers.h"
 
 #import "RCTFabricComponentsPlugins.h"
-#import "AutoSkeleton-Swift.h"
+#import "react_native_auto_skeleton-Swift.h"
 
 #import <React/RCTViewManager.h>
 #import <React/RCTUIManager.h>

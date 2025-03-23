@@ -2,7 +2,7 @@
 #import <React/RCTUIManager.h>
 #import "RCTBridge.h"
 #import "AutoSkeletonView.h"
-#import "AutoSkeleton-Swift.h"
+#import "react_native_auto_skeleton-Swift.h"
 
 @interface AutoSkeletonViewManager : RCTViewManager
 @end

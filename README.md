@@ -53,7 +53,6 @@ export default function App() {
   }, []);
 
   return (
-    <View style={styles.container}>
       <AutoSkeletonView isLoading={isLoading}>
         <View style={styles.avatarWithName}>
           <Image style={styles.avatar} source={{ uri: profile.avatar }} />
@@ -71,7 +70,6 @@ export default function App() {
           </TouchableOpacity>
         </View>
       </AutoSkeletonView>
-    </View>
   );
 }
 ```

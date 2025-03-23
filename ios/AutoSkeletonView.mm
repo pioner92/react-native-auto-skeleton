@@ -6,6 +6,11 @@
 #import "generated/RNAutoSkeletonViewSpec/RCTComponentViewHelpers.h"
 
 #import "RCTFabricComponentsPlugins.h"
+#import "AutoSkeleton-Swift.h"
+
+#import <React/RCTViewManager.h>
+#import <React/RCTUIManager.h>
+#import "RCTBridge.h"
 
 using namespace facebook::react;
 
@@ -14,12 +19,22 @@ using namespace facebook::react;
 @end
 
 @implementation AutoSkeletonView {
-    UIView * _view;
+  SkeletonView * _view;
 }
 
 + (ComponentDescriptorProvider)componentDescriptorProvider
 {
     return concreteComponentDescriptorProvider<AutoSkeletonViewComponentDescriptor>();
+}
+
+-(instancetype)init
+{
+  if(self = [super init]) {
+    _view = [SkeletonView new];
+
+    self.contentView = _view;
+  }
+  return self;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -28,7 +43,11 @@ using namespace facebook::react;
     static const auto defaultProps = std::make_shared<const AutoSkeletonViewProps>();
     _props = defaultProps;
 
-    _view = [[UIView alloc] init];
+    _view = [[SkeletonView alloc] init];
+
+    [
+      _view addChildrenWithViews:self.subviews
+    ];
 
     self.contentView = _view;
   }
@@ -41,12 +60,16 @@ using namespace facebook::react;
     const auto &oldViewProps = *std::static_pointer_cast<AutoSkeletonViewProps const>(_props);
     const auto &newViewProps = *std::static_pointer_cast<AutoSkeletonViewProps const>(props);
 
-    if (oldViewProps.color != newViewProps.color) {
-        NSString * colorToConvert = [[NSString alloc] initWithUTF8String: newViewProps.color.c_str()];
-        [_view setBackgroundColor:[self hexStringToColor:colorToConvert]];
+  if (oldViewProps.isLoading != newViewProps.isLoading) {
+      [_view setIsLoading:newViewProps.isLoading];
     }
 
     [super updateProps:props oldProps:oldProps];
+}
+
+-(void) layoutSubviews {
+  [super layoutSubviews];
+  _view.frame = self.bounds;
 }
 
 Class<RCTComponentViewProtocol> AutoSkeletonViewCls(void)

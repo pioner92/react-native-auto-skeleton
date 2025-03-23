@@ -1,23 +1,111 @@
-import { View, StyleSheet } from 'react-native';
+import React, { useEffect } from 'react';
+import { View, StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
 import { AutoSkeletonView } from 'react-native-auto-skeleton';
 
+interface IProfile {
+  name: string;
+  jobTitle: string;
+  avatar: string;
+}
+
+const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+const getProfile = async (): Promise<IProfile> => {
+  await delay(3000);
+  return {
+    name: 'Alex Shumihin',
+    jobTitle: 'React Native Developer',
+    avatar: 'https://picsum.photos/200/300',
+  };
+};
+
 export default function App() {
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [profile, setProfile] = React.useState<IProfile>({});
+
+  const init = async () => {
+    // await delay(3000);
+    setIsLoading(true);
+    // await delay(3000);
+    const res = await getProfile();
+    setProfile(res);
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    init();
+  }, []);
+
   return (
-    <View style={styles.container}>
-      <AutoSkeletonView color="#32a852" style={styles.box} />
+    <View style={s.container}>
+      <AutoSkeletonView isLoading={isLoading}>
+        <View style={s.avatarWithName}>
+          <Image style={s.avatar} source={{ uri: profile.avatar }} />
+          <View style={{ flex: 1 }}>
+            <Text style={s.name}>{profile.name}</Text>
+            <Text style={s.jobTitle}>{profile.jobTitle}</Text>
+          </View>
+        </View>
+        <View style={s.buttons}>
+          <TouchableOpacity style={s.button}>
+            <Text style={s.buttonTitle}>Add</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={s.button}>
+            <Text style={s.buttonTitle}>Delete</Text>
+          </TouchableOpacity>
+        </View>
+      </AutoSkeletonView>
     </View>
   );
 }
 
-const styles = StyleSheet.create({
+const s = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    paddingTop: 100,
+    padding: 20,
   },
-  box: {
-    width: 60,
-    height: 60,
-    marginVertical: 20,
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  avatarWithName: {
+    flexDirection: 'row',
+    columnGap: 20,
+  },
+  avatar: {
+    width: 100,
+    height: 100,
+    borderRadius: 12,
+  },
+  name: {
+    width: '100%',
+    fontSize: 30,
+    fontWeight: 'bold',
+    marginTop: 10,
+  },
+  jobTitle: {
+    width: '100%',
+    fontSize: 20,
+    color: '#666',
+    marginTop: 5,
+  },
+  buttons: {
+    marginTop: 20,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    columnGap: 20,
+  },
+  button: {
+    flex: 1,
+    alignItems: 'center',
+    paddingVertical: 10,
+    backgroundColor: 'black',
+    borderRadius: 10,
+  },
+  buttonTitle: {
+    color: 'white',
+    fontSize: 20,
+    fontWeight: 'bold',
   },
 });

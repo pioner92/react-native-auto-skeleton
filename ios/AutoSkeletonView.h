@@ -1,6 +1,7 @@
 #import <React/RCTViewComponentView.h>
 #import <UIKit/UIKit.h>
 
+
 #ifndef AutoSkeletonViewNativeComponent_h
 #define AutoSkeletonViewNativeComponent_h
 

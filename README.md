@@ -6,13 +6,6 @@ The library intelligently analyzes your UI structure, identifying dimensions, po
 
 ⚠️ **Currently supports only iOS with the New Architecture (Fabric). Android support is coming soon.**
 
-## Features
-
-- **Automatic detection:** Dynamically generates skeleton views based on component size, position, and shape.
-- **Comprehensive support:** Works seamlessly with common React Native components (`View`, `Text`, `Image`, `TouchableOpacity`, etc.).
-- **Visual consistency:** Automatically inherits visual styles like `borderRadius`, dimensions, and backgrounds.
-- **Flexible usage:** Provides granular control—you can wrap entire UI sections or individual components.
-
 ## Demo
 <p align="center">
 <img src="./assets/demo.gif" width="200" alt="react-native-auto-skeleton demo" />

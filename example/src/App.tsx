@@ -11,9 +11,9 @@ interface IProfile {
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const getProfile = async (): Promise<IProfile> => {
-  await delay(3000);
+  await delay(2000);
   return {
-    name: 'Alex Shumihin',
+    name: 'Alex Last-Name',
     jobTitle: 'React Native Developer',
     avatar: require('../assets/avatar.png'),
   };
@@ -24,11 +24,17 @@ export default function App() {
   const [profile, setProfile] = React.useState<IProfile>({});
 
   const init = async () => {
-    // await delay(3000);
     setIsLoading(true);
-    // await delay(3000);
     const res = await getProfile();
     setProfile(res);
+    setIsLoading(false);
+
+    await delay(2000);
+
+    setIsLoading(true);
+    // await delay(3000);
+    const res2 = await getProfile();
+    setProfile(res2);
     setIsLoading(false);
   };
 
@@ -37,33 +43,38 @@ export default function App() {
   }, []);
 
   return (
-    <View style={s.container}>
-      <AutoSkeletonView isLoading={isLoading}>
-        <View style={s.avatarWithName}>
-          <Image style={s.avatar} source={profile.avatar} />
-          <View style={{ flex: 1 }}>
-            <Text style={s.name}>{profile.name}</Text>
-            <Text style={s.jobTitle}>{profile.jobTitle}</Text>
+    <>
+      <View style={s.container}>
+        <Text style={{ fontSize: 20, textAlign: 'center', marginBottom: 20 }}>
+          IS LOADING: {isLoading ? 'true' : 'false'}
+        </Text>
+        <AutoSkeletonView isLoading={isLoading}>
+          <View style={s.avatarWithName}>
+            <Image style={s.avatar} source={profile.avatar} />
+            <View style={{ flex: 1 }}>
+              <Text style={s.name}>{profile.name}</Text>
+              <Text style={s.jobTitle}>{profile.jobTitle}</Text>
+            </View>
           </View>
-        </View>
-        <View style={s.buttons}>
-          <TouchableOpacity style={s.button}>
-            <Text style={s.buttonTitle}>Add</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={s.button}>
-            <Text style={s.buttonTitle}>Delete</Text>
-          </TouchableOpacity>
-        </View>
-      </AutoSkeletonView>
-    </View>
+          <View style={s.buttons}>
+            <TouchableOpacity style={s.button}>
+              <Text style={s.buttonTitle}>Add</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={s.button}>
+              <Text style={s.buttonTitle}>Delete</Text>
+            </TouchableOpacity>
+          </View>
+        </AutoSkeletonView>
+      </View>
+    </>
   );
 }
 
 const s = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 100,
-    padding: 20,
+    paddingTop: 70,
+    paddingHorizontal: 20,
   },
   row: {
     flexDirection: 'row',

@@ -87,9 +87,10 @@ public class SkeletonView: UIView {
     self.gradientLayer.isHidden = false
     applyMask()
 
-    UIView.transition(with: self, duration: 0.2, options: [.transitionCrossDissolve], animations: {
-      self.originalViews.forEach { $0.removeFromSuperview() }
+    print("LEN \(originalViews.count)")
 
+    UIView.transition(with: self, duration: 0.2, options: [.transitionCrossDissolve], animations: {
+      self.originalViews.forEach { $0.isHidden = true }
     }, completion: { _ in
       self.startShimmer()
     })
@@ -120,10 +121,8 @@ public class SkeletonView: UIView {
   private func hidePlaceholder() {
     UIView.transition(with: self, duration: 0.2, options: [.transitionCrossDissolve], animations: {
       self.gradientLayer.isHidden = true
-      self.originalViews.forEach { self.addSubview($0) }
+      self.originalViews.forEach { $0.isHidden = false }
     }, completion: { _ in
-
-      self.originalViews.removeAll()
       self.stopShimmer()
     })
   }

@@ -28,7 +28,8 @@ yarn add react-native-auto-skeleton
 ```
 
 
-![Demo](./assets/demo.gif)
+## Example
+<img src="./assets/demo.gif" width="300" height="600" />
 
 
 ## Usage

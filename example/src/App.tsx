@@ -15,7 +15,7 @@ const getProfile = async (): Promise<IProfile> => {
   return {
     name: 'Alex Shumihin',
     jobTitle: 'React Native Developer',
-    avatar: 'https://picsum.photos/200/300',
+    avatar: require('../assets/avatar.png'),
   };
 };
 
@@ -40,7 +40,7 @@ export default function App() {
     <View style={s.container}>
       <AutoSkeletonView isLoading={isLoading}>
         <View style={s.avatarWithName}>
-          <Image style={s.avatar} source={{ uri: profile.avatar }} />
+          <Image style={s.avatar} source={profile.avatar} />
           <View style={{ flex: 1 }}>
             <Text style={s.name}>{profile.name}</Text>
             <Text style={s.jobTitle}>{profile.jobTitle}</Text>

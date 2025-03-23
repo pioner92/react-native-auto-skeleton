@@ -27,6 +27,10 @@ or
 yarn add react-native-auto-skeleton
 ```
 
+
+![Demo](./assets/demo.gif)
+
+
 ## Usage
 
 ```tsx

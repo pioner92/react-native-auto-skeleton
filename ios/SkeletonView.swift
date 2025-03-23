@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-let REACT_COMPONENTS = Set(["RCTImageComponentView", "RCTImageView", "RCTParagraphComponentView"])
+let RCT_COMPONENTS_SET = Set(["RCTImageComponentView", "RCTImageView", "RCTParagraphComponentView", "RCTTextInputComponentView"])
 
 @objcMembers
 public class SkeletonView: UIView {
@@ -70,13 +70,13 @@ public class SkeletonView: UIView {
     originalViews.removeAll()
 
     originalViews = views.filter {
-      if $0.backgroundColor != nil && $0.backgroundColor != .clear {
+      if $0.backgroundColor != nil && $0.backgroundColor != .clear && !$0.isKind(of: SkeletonView.self) {
         return true
       }
 
       let className = String(describing: type(of: $0))
 
-      if REACT_COMPONENTS.contains(className) {
+      if RCT_COMPONENTS_SET.contains(className) {
         return true
       }
       return false
@@ -86,8 +86,6 @@ public class SkeletonView: UIView {
   private func showPlaceholder() {
     self.gradientLayer.isHidden = false
     applyMask()
-
-    print("LEN \(originalViews.count)")
 
     UIView.transition(with: self, duration: 0.2, options: [.transitionCrossDissolve], animations: {
       self.originalViews.forEach { $0.isHidden = true }

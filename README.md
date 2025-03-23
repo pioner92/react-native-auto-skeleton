@@ -27,9 +27,8 @@ or
 yarn add react-native-auto-skeleton
 ```
 
-
 ## Example
-<img src="./assets/demo.gif" width="300" height="600" />
+<img src="./assets/demo.gif" width="300" />
 
 
 ## Usage

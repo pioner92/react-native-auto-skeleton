@@ -28,8 +28,6 @@ yarn add react-native-auto-skeleton
 Here's a quick example to get started:
 
 ```tsx
-import React, { useEffect, useState } from 'react';
-import { View, Image, Text, TouchableOpacity } from 'react-native';
 import { AutoSkeletonView } from 'react-native-auto-skeleton';
 
 interface IProfile {

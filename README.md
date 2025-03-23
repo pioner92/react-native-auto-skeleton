@@ -1,39 +1,42 @@
 # react-native-auto-skeleton
 
-`react-native-auto-skeleton` is a lightweight and flexible skeleton loader for React Native apps. It automatically generates skeleton placeholders based on your UI components while data is loading, with no need to manually configure individual skeleton elements.
+**`react-native-auto-skeleton`** is a lightweight, flexible, and powerful skeleton loader for React Native applications. It provides automatic skeleton loading indicators based on your existing UI components, eliminating the need for manual placeholder configuration.
 
-The library intelligently analyzes your layout structure, detecting the dimensions, position, and `borderRadius` of each component such as `View`, `Text`, `Image`, `TouchableOpacity`, and others. Based on this information, it renders a skeleton that precisely matches the shape and size of your original components, ensuring a smooth and native-like loading experience.
+The library intelligently analyzes your UI structure, identifying dimensions, positions, and visual properties (`borderRadius`, backgrounds) of each component—such as `View`, `Text`, `Image`, `TouchableOpacity`, and others. It then renders placeholders that accurately match the shape and size of your UI components, ensuring a seamless and native-like loading experience.
 
-You can either wrap entire blocks of UI or individual components, giving you granular control over where and how the skeletons appear.
-
-⚠️ **Currently supports only iOS with the New Architecture (Fabric)**.
+⚠️ **Currently supports only iOS with the New Architecture (Fabric). Android support is coming soon.**
 
 ## Features
 
-- Automatically detects and applies skeletons based on component size, position, and shape.
-- Supports `View`, `Text`, `Image`, `TouchableOpacity`, and other common React Native components.
-- Automatically inherits `borderRadius` and dimensions from existing styles.
-- Flexible API: wrap full layouts or specific elements.
+- **Automatic detection:** Dynamically generates skeleton views based on component size, position, and shape.
+- **Comprehensive support:** Works seamlessly with common React Native components (`View`, `Text`, `Image`, `TouchableOpacity`, etc.).
+- **Visual consistency:** Automatically inherits visual styles like `borderRadius`, dimensions, and backgrounds.
+- **Flexible usage:** Provides granular control—you can wrap entire UI sections or individual components.
+
+## Demo
+<p align="center">
+<img src="./assets/demo.gif" width="300" alt="react-native-auto-skeleton demo" />
+</p>
 
 ## Installation
 
+Using npm:
 ```bash
 npm install react-native-auto-skeleton
 ```
 
-or
-
+Using yarn:
 ```bash
 yarn add react-native-auto-skeleton
 ```
 
-## Example
-<img src="./assets/demo.gif" width="300" />
-
-
 ## Usage
 
+Here's a quick example to get started:
+
 ```tsx
+import React, { useEffect, useState } from 'react';
+import { View, Image, Text, TouchableOpacity } from 'react-native';
 import { AutoSkeletonView } from 'react-native-auto-skeleton';
 
 interface IProfile {
@@ -42,42 +45,38 @@ interface IProfile {
   avatar: string;
 }
 
-
 const getProfile = async (): Promise<IProfile> => {
-...
+  // Fetch profile data from your API
 };
 
 export default function App() {
-  const [isLoading, setIsLoading] = React.useState(false);
-  const [profile, setProfile] = React.useState<IProfile>({} as IProfile);
-
-  const init = async () => {
-    setIsLoading(true);
-    const res = await getProfile();
-    setProfile(res);
-    setIsLoading(false);
-  };
+  const [isLoading, setIsLoading] = useState(true);
+  const [profile, setProfile] = useState<IProfile>({} as IProfile);
 
   useEffect(() => {
-    init();
+    (async () => {
+      const res = await getProfile();
+      setProfile(res);
+      setIsLoading(false);
+    })();
   }, []);
 
   return (
-    <View style={s.container}>
+    <View style={styles.container}>
       <AutoSkeletonView isLoading={isLoading}>
-        <View style={s.avatarWithName}>
-          <Image style={s.avatar} source={{ uri: profile.avatar }} />
+        <View style={styles.avatarWithName}>
+          <Image style={styles.avatar} source={{ uri: profile.avatar }} />
           <View style={{ flex: 1 }}>
-            <Text style={s.name}>{profile.name}</Text>
-            <Text style={s.jobTitle}>{profile.jobTitle}</Text>
+            <Text style={styles.name}>{profile.name}</Text>
+            <Text style={styles.jobTitle}>{profile.jobTitle}</Text>
           </View>
         </View>
-        <View style={s.buttons}>
-          <TouchableOpacity style={s.button}>
-            <Text style={s.buttonTitle}>Add</Text>
+        <View style={styles.buttons}>
+          <TouchableOpacity style={styles.button}>
+            <Text style={styles.buttonTitle}>Add</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={s.button}>
-            <Text style={s.buttonTitle}>Delete</Text>
+          <TouchableOpacity style={styles.button}>
+            <Text style={styles.buttonTitle}>Delete</Text>
           </TouchableOpacity>
         </View>
       </AutoSkeletonView>
@@ -86,13 +85,12 @@ export default function App() {
 }
 ```
 
-## Notes
+## Best Practices
 
-- Skeleton applies automatically to any child components with `backgroundColor`, `Image`, `Text`, and buttons.
-- Works out-of-the-box with your current styles (e.g., respects `borderRadius` and layout).
-- Recommended to wrap entire sections for faster development or individual elements for granular control.
+- For rapid implementation, wrap entire UI sections with `<AutoSkeletonView>`.
+- For precise control, wrap individual UI components or groups separately.
+- Ensure components have clearly defined dimensions, backgrounds, or styles for optimal skeleton rendering.
 
 ## License
 
-MIT
-
+[MIT](LICENSE)

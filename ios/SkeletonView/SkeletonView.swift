@@ -31,7 +31,7 @@ public class SkeletonView: UIView {
 
   private var originalViews: [UIView] = []
 
-  private let defaultCorderRadius = 4.0
+  public var defaultCorderRadius = 4.0
 
   private let gradientLayer: CAGradientLayer = {
     let gradientLayer = CAGradientLayer()

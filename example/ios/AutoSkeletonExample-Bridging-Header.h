@@ -8,5 +8,6 @@
 #ifndef AutoSkeletonExample_Bridge_h
 #define AutoSkeletonExample_Bridge_h
 
+#import "Constants.h"
 
 #endif /* AutoSkeletonExample_Bridge_h */

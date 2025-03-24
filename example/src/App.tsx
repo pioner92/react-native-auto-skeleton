@@ -1,6 +1,9 @@
 import React, { useEffect } from 'react';
 import { View, StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
-import { AutoSkeletonView } from 'react-native-auto-skeleton';
+import {
+  AutoSkeletonView,
+  AutoSkeletonIgnoreView,
+} from 'react-native-auto-skeleton';
 
 interface IProfile {
   name: string;
@@ -56,14 +59,16 @@ export default function App() {
               <Text style={s.jobTitle}>{profile.jobTitle}</Text>
             </View>
           </View>
-          <View style={s.buttons}>
-            <TouchableOpacity style={s.button}>
-              <Text style={s.buttonTitle}>Add</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={s.button}>
-              <Text style={s.buttonTitle}>Delete</Text>
-            </TouchableOpacity>
-          </View>
+          <AutoSkeletonIgnoreView>
+            <View style={s.buttons}>
+              <TouchableOpacity style={s.button}>
+                <Text style={s.buttonTitle}>Add</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={s.button}>
+                <Text style={s.buttonTitle}>Delete</Text>
+              </TouchableOpacity>
+            </View>
+          </AutoSkeletonIgnoreView>
         </AutoSkeletonView>
       </View>
     </>

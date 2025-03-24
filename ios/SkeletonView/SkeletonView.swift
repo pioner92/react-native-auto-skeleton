@@ -9,6 +9,8 @@
 import Foundation
 import UIKit
 
+
+
 let RCT_COMPONENTS_SET = Set(["RCTImageComponentView", "RCTImageView", "RCTParagraphComponentView", "RCTTextInputComponentView"])
 
 @objcMembers
@@ -70,7 +72,12 @@ public class SkeletonView: UIView {
     originalViews.removeAll()
 
     originalViews = views.filter {
-      if $0.backgroundColor != nil && $0.backgroundColor != .clear && !$0.isKind(of: SkeletonView.self) {
+
+      if($0.accessibilityIdentifier == Constants.IGNORE_VIEW_NAME) {
+        return false
+      }
+
+      if $0.backgroundColor != nil && $0.backgroundColor != .clear && !($0 is SkeletonView) {
         return true
       }
 

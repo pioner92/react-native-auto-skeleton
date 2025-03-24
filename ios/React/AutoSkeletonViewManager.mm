@@ -9,7 +9,7 @@
 
 @implementation AutoSkeletonViewManager
 
-RCT_EXPORT_MODULE(AutoSkeletonViewOld)
+RCT_EXPORT_MODULE(AutoSkeletonView)
 
 
 RCT_CUSTOM_VIEW_PROPERTY(isLoading, BOOL, SkeletonView) {

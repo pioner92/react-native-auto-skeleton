@@ -34,7 +34,7 @@ import { AutoSkeletonView, AutoSkeletonIgnoreView } from 'react-native-auto-skel
 <AutoSkeletonView isLoading={isLoading}>
     ...YOUR VIEWS
   <AutoSkeletonIgnoreView> // Content that will be ignored by the skeleton
-    ...
+    ... Views without skeleton
   </AutoSkeletonIgnoreView>
 </AutoSkeletonView>
 ```
@@ -67,23 +67,32 @@ export default function App() {
   }, []);
 
   return (
-      <AutoSkeletonView isLoading={isLoading}>
-        <View style={styles.avatarWithName}>
-          <Image style={styles.avatar} source={{ uri: profile.avatar }} />
-          <View style={{ flex: 1 }}>
-            <Text style={styles.name}>{profile.name}</Text>
-            <Text style={styles.jobTitle}>{profile.jobTitle}</Text>
-          </View>
+     <AutoSkeletonView isLoading={isLoading}>
+      <View style={styles.avatarWithName}>
+        <Image style={styles.avatar} source={{ uri: profile.avatar }} />
+        <View style={{ flex: 1 }}>
+          <Text style={styles.name}>{profile.name}</Text>
+          <Text style={styles.jobTitle}>{profile.jobTitle}</Text>
         </View>
+      </View>
+
+      {/* This buttons block will have skeleton applied */}
+      <View style={styles.buttons}>
+        <TouchableOpacity style={styles.button}>
+          <Text style={styles.buttonTitle}>Add</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button}>
+          <Text style={styles.buttonTitle}>Delete</Text>
+        </TouchableOpacity>
+      </View>
+
+      {/* Alternatively, to exclude buttons from skeleton rendering: */}
+      <AutoSkeletonIgnoreView>
         <View style={styles.buttons}>
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonTitle}>Add</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonTitle}>Delete</Text>
-          </TouchableOpacity>
+           ...
         </View>
-      </AutoSkeletonView>
+      </AutoSkeletonIgnoreView>
+    </AutoSkeletonView>
   );
 }
 ```

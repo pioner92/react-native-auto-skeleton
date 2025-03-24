@@ -93,6 +93,7 @@ export default function App() {
 - For rapid implementation, wrap entire UI sections with `<AutoSkeletonView>`.
 - For precise control, wrap individual UI components or groups separately.
 - Ensure components have clearly defined dimensions, backgrounds, or styles for optimal skeleton rendering.
+- To exclude specific components from skeleton rendering, wrap them with `<AutoSkeletonIgnoreView>`. Any content inside this wrapper will not be processed by the skeleton system.
 
 ## License
 

@@ -14,16 +14,18 @@ import UIKit
 @objcMembers
 public class SkeletonView: SkeletonCore {
 
-  override public func layoutSubviews() {
-    super.layoutSubviews()
+	override public func layoutSubviews() {
+		super.layoutSubviews()
 
-    let views = flattenSubviews(from: self.subviews)
+		DispatchQueue.main.async {
+			let views = self.flattenSubviews(from: self.subviews)
 
-    initOriginalViews(views: views)
+			self.initOriginalViews(views: views)
 
-    if isLoading {
-      showPlaceholder()
-    }
+			if self.isLoading {
+				self.showPlaceholder()
+			}
+		}
   }
 
   func flattenSubviews(from views: [UIView]) -> [UIView] {

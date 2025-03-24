@@ -33,7 +33,7 @@ import { AutoSkeletonView, AutoSkeletonIgnoreView } from 'react-native-auto-skel
 
 <AutoSkeletonView isLoading={isLoading}>
     ...YOUR VIEWS
-  <AutoSkeletonIgnoreView> // ignore some views
+  <AutoSkeletonIgnoreView> // Content that will be ignored by the skeleton
     ...
   </AutoSkeletonIgnoreView>
 </AutoSkeletonView>

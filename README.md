@@ -6,7 +6,7 @@
 
 ## Demo
 <p align="center">
-<img src="./assets/demo.gif" width="200" alt="react-native-auto-skeleton demo" />
+<img src="./assets/demo.gif" width="500" alt="react-native-auto-skeleton demo" />
 </p>
 
 ## Installation

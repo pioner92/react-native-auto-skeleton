@@ -97,6 +97,15 @@ export default function App() {
 }
 ```
 
+## API
+
+| Prop                      | Type    | Default | Description                                                                                   |
+|---------------------------|---------|---------|-----------------------------------------------------------------------------------------------|
+| `isLoading`               | boolean | —       | Enables or disables the skeleton state. When `true`, skeleton placeholders will be shown.     |
+| `shimmerSpeed`            | Float   | `1.0`   | Duration of one shimmer animation cycle **in seconds**. Lower values = faster shimmer.        |
+| `shimmerBackgroundColor`  | string  | `#C7C7CC`       | Background color of skeleton shapes in **hex format** (e.g., `#E0E0E0`).                      |
+| `defaultRadius`           | Float   | `4`     | Default corner radius for skeleton elements that don't have a defined `borderRadius`.         |
+
 ## Best Practices
 
 - For rapid implementation, wrap entire UI sections with `<AutoSkeletonView>`.

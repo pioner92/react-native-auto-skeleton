@@ -28,11 +28,14 @@ Here's a quick example to get started:
 
 ```tsx
 
-import { AutoSkeletonView } from 'react-native-auto-skeleton';
+import { AutoSkeletonView, AutoSkeletonIgnoreView } from 'react-native-auto-skeleton';
 ...
 
 <AutoSkeletonView isLoading={isLoading}>
     ...YOUR VIEWS
+  <AutoSkeletonIgnoreView> // Content that will be ignored by the skeleton
+    ... Views without skeleton
+  </AutoSkeletonIgnoreView>
 </AutoSkeletonView>
 ```
 
@@ -64,23 +67,32 @@ export default function App() {
   }, []);
 
   return (
-      <AutoSkeletonView isLoading={isLoading}>
-        <View style={styles.avatarWithName}>
-          <Image style={styles.avatar} source={{ uri: profile.avatar }} />
-          <View style={{ flex: 1 }}>
-            <Text style={styles.name}>{profile.name}</Text>
-            <Text style={styles.jobTitle}>{profile.jobTitle}</Text>
-          </View>
+     <AutoSkeletonView isLoading={isLoading}>
+      <View style={styles.avatarWithName}>
+        <Image style={styles.avatar} source={{ uri: profile.avatar }} />
+        <View style={{ flex: 1 }}>
+          <Text style={styles.name}>{profile.name}</Text>
+          <Text style={styles.jobTitle}>{profile.jobTitle}</Text>
         </View>
+      </View>
+
+      {/* This buttons block will have skeleton applied */}
+      <View style={styles.buttons}>
+        <TouchableOpacity style={styles.button}>
+          <Text style={styles.buttonTitle}>Add</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button}>
+          <Text style={styles.buttonTitle}>Delete</Text>
+        </TouchableOpacity>
+      </View>
+
+      {/* Alternatively, to exclude buttons from skeleton rendering: */}
+      <AutoSkeletonIgnoreView>
         <View style={styles.buttons}>
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonTitle}>Add</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonTitle}>Delete</Text>
-          </TouchableOpacity>
+           ...
         </View>
-      </AutoSkeletonView>
+      </AutoSkeletonIgnoreView>
+    </AutoSkeletonView>
   );
 }
 ```
@@ -90,6 +102,7 @@ export default function App() {
 - For rapid implementation, wrap entire UI sections with `<AutoSkeletonView>`.
 - For precise control, wrap individual UI components or groups separately.
 - Ensure components have clearly defined dimensions, backgrounds, or styles for optimal skeleton rendering.
+- To exclude specific components from skeleton rendering, wrap them with `<AutoSkeletonIgnoreView>`. Any content inside this wrapper will not be processed by the skeleton system.
 
 ## License
 

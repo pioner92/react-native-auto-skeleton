@@ -1,6 +1,6 @@
 # react-native-auto-skeleton
 
-**`react-native-auto-skeleton`** is a lightweight, flexible, and powerful skeleton loader for React Native applications. It provides automatic skeleton loading indicators based on your existing UI components, eliminating the need for manual placeholder configuration.
+**`react-native-auto-skeleton`** Provides automatic skeleton loading indicators based on your existing UI components, eliminating the need for manual placeholder configuration.
 
 The library intelligently analyzes your UI structure, identifying dimensions, positions, and visual properties (`borderRadius`, backgrounds) of each component—such as `View`, `Text`, `Image`, `TouchableOpacity`, and others. It then renders placeholders that accurately match the shape and size of your UI components, ensuring a seamless and native-like loading experience.
 

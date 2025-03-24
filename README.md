@@ -28,11 +28,14 @@ Here's a quick example to get started:
 
 ```tsx
 
-import { AutoSkeletonView } from 'react-native-auto-skeleton';
+import { AutoSkeletonView, AutoSkeletonIgnoreView } from 'react-native-auto-skeleton';
 ...
 
 <AutoSkeletonView isLoading={isLoading}>
     ...YOUR VIEWS
+  <AutoSkeletonIgnoreView> // ignore some views
+    ...
+  </AutoSkeletonIgnoreView>
 </AutoSkeletonView>
 ```
 

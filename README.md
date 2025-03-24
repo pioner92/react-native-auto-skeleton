@@ -25,6 +25,19 @@ yarn add react-native-auto-skeleton
 
 Here's a quick example to get started:
 
+
+```tsx
+
+import { AutoSkeletonView } from 'react-native-auto-skeleton';
+...
+
+<AutoSkeletonView isLoading={isLoading}>
+    ...YOUR VIEWS
+</AutoSkeletonView>
+```
+
+Full example
+
 ```tsx
 import { AutoSkeletonView } from 'react-native-auto-skeleton';
 

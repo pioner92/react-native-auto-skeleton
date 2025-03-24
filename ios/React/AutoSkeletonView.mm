@@ -19,7 +19,7 @@ using namespace facebook::react;
 @end
 
 @implementation AutoSkeletonView {
-  SkeletonView* _view;
+  SkeletonViewFabric* _view;
 }
 
 + (ComponentDescriptorProvider)componentDescriptorProvider {
@@ -29,7 +29,7 @@ using namespace facebook::react;
 
 - (instancetype)init {
   if (self = [super init]) {
-    _view = [SkeletonView new];
+    _view = [SkeletonViewFabric new];
 
     self.contentView = _view;
   }
@@ -42,9 +42,9 @@ using namespace facebook::react;
         std::make_shared<const AutoSkeletonViewProps>();
     _props = defaultProps;
 
-    _view = [[SkeletonView alloc] init];
+    _view = [[SkeletonViewFabric alloc] init];
 
-    [_view addChildrenWithViews:self.subviews];
+    [_view initOriginalViewsWithViews:self.subviews];
 
     self.contentView = _view;
   }

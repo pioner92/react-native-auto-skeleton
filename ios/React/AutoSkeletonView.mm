@@ -60,9 +60,21 @@ using namespace facebook::react;
     const auto &oldViewProps = *std::static_pointer_cast<AutoSkeletonViewProps const>(_props);
     const auto &newViewProps = *std::static_pointer_cast<AutoSkeletonViewProps const>(props);
 
-  if (oldViewProps.isLoading != newViewProps.isLoading) {
+    if (oldViewProps.isLoading != newViewProps.isLoading) {
       [_view setIsLoading:newViewProps.isLoading];
     }
+    if (oldViewProps.shimmerSpeed != newViewProps.shimmerSpeed) {
+      [_view setAnimationSpeed:newViewProps.shimmerSpeed];
+    }
+
+  if (oldViewProps.shimmerBackgroundColor != newViewProps.shimmerBackgroundColor) {
+
+    NSString *string_color =  [NSString stringWithUTF8String:newViewProps.shimmerBackgroundColor.c_str()];
+
+    UIColor* uiColor = [self hexStringToColor:string_color];
+
+    [_view setShimmerBackgroundColor:uiColor.CGColor];
+  }
 
     [super updateProps:props oldProps:oldProps];
 }

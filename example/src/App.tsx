@@ -51,7 +51,11 @@ export default function App() {
         <Text style={{ fontSize: 20, textAlign: 'center', marginBottom: 20 }}>
           IS LOADING: {isLoading ? 'true' : 'false'}
         </Text>
-        <AutoSkeletonView isLoading={isLoading}>
+        <AutoSkeletonView
+          shimmerSpeed={1.0}
+          shimmerBackgroundColor={'#919090'}
+          isLoading={isLoading}
+        >
           <View style={s.avatarWithName}>
             <Image style={s.avatar} source={profile.avatar} />
             <View style={{ flex: 1 }}>

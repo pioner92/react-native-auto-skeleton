@@ -21,6 +21,14 @@ public class SkeletonView: UIView {
     }
   }
 
+  public var shimmerBackgroundColor: CGColor = UIColor.systemGray3.cgColor  {
+    didSet {
+      gradientLayer.backgroundColor = shimmerBackgroundColor
+    }
+  }
+
+  public var animationSpeed: TimeInterval = 1.0
+
   private var originalViews: [UIView] = []
 
   private let defaultCorderRadius = 4.0
@@ -148,7 +156,7 @@ public class SkeletonView: UIView {
       UIColor.white.withAlphaComponent(valZero).cgColor,
       UIColor.white.withAlphaComponent(valColor).cgColor,
     ]
-    animation.duration = 1.0
+    animation.duration = animationSpeed
     animation.autoreverses = true
     animation.repeatCount = .infinity
 

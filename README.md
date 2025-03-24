@@ -1,6 +1,6 @@
 # react-native-auto-skeleton
 
-**`react-native-auto-skeleton`** Provides automatic skeleton loading indicators based on your existing UI components, eliminating the need for manual placeholder configuration.
+**`react-native-auto-skeleton`** Provides automatic skeleton loading indicators based on your existing UI components, without manual configuration..
 
 ⚠️ **Currently supports only iOS with the New Architecture (Fabric). Android support is coming soon.**
 

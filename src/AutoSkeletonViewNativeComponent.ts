@@ -1,6 +1,6 @@
 import codegenNativeComponent from 'react-native/Libraries/Utilities/codegenNativeComponent';
 import type { Float } from 'react-native/Libraries/Types/CodegenTypes';
-import type { ViewProps } from 'react-native';
+import type { ViewProps, ColorValue } from 'react-native';
 
 export interface NativeProps extends ViewProps {
   /**
@@ -27,7 +27,7 @@ export interface NativeProps extends ViewProps {
    *
    * @example "#E0E0E0"
    */
-  shimmerBackgroundColor?: string;
+  shimmerBackgroundColor?: ColorValue;
 
   /**
    * Default corner radius applied to skeleton elements that don't have an explicit `borderRadius`.

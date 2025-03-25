@@ -20,6 +20,23 @@ RCT_CUSTOM_VIEW_PROPERTY(isLoading, BOOL, SkeletonView) {
   view.isLoading = isLoading;
 }
 
+RCT_CUSTOM_VIEW_PROPERTY(defaultRadius, float, SkeletonView) {
+	float defaultRadius = json ? [RCTConvert float:json] : defaultView.defaultCorderRadius;
+	view.defaultCorderRadius = defaultRadius;
+}
+
+RCT_CUSTOM_VIEW_PROPERTY(shimmerSpeed, float, SkeletonView) {
+	float shimmerSpeed = json ? [RCTConvert float:json] : defaultView.animationSpeed;
+	view.animationSpeed = shimmerSpeed;
+}
+
+RCT_CUSTOM_VIEW_PROPERTY(shimmerBackgroundColor, UIColor, SkeletonView) {
+	UIColor *uiColor = json ? [RCTConvert UIColor:json] : view.shimmerBackgroundColor;
+
+	view.shimmerBackgroundColor = uiColor;
+}
+
+
 - (UIView *)view
 {
   return  [SkeletonView new];

@@ -8,8 +8,10 @@
 #import "RCTFabricComponentsPlugins.h"
 #import "react_native_auto_skeleton-Swift.h"
 
+#import <React/RCTConversions.h>
 #import <React/RCTUIManager.h>
 #import <React/RCTViewManager.h>
+#import <react/renderer/graphics/Color.h>
 #import "RCTBridge.h"
 
 using namespace facebook::react;
@@ -68,16 +70,13 @@ using namespace facebook::react;
 
   if (oldViewProps.shimmerBackgroundColor !=
       newViewProps.shimmerBackgroundColor) {
-    NSString* string_color = [NSString
-        stringWithUTF8String:newViewProps.shimmerBackgroundColor.c_str()];
+    UIColor* uiColor =
+        RCTUIColorFromSharedColor(newViewProps.shimmerBackgroundColor);
 
-    UIColor* uiColor = [self hexStringToColor:string_color];
-
-    [_view setShimmerBackgroundColor:uiColor.CGColor];
+    [_view setShimmerBackgroundColor:uiColor];
   }
 
-  if (oldViewProps.defaultRadius !=
-      newViewProps.defaultRadius) {
+  if (oldViewProps.defaultRadius != newViewProps.defaultRadius) {
     [_view setDefaultCorderRadius:newViewProps.defaultRadius];
   }
 

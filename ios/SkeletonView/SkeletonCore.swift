@@ -18,9 +18,9 @@ public class SkeletonCore: UIView {
     }
   }
 
-  public var shimmerBackgroundColor: CGColor = UIColor.systemGray3.cgColor  {
+  public var shimmerBackgroundColor: UIColor = UIColor.systemGray3  {
     didSet {
-      gradientLayer.backgroundColor = shimmerBackgroundColor
+      gradientLayer.backgroundColor = shimmerBackgroundColor.cgColor
     }
   }
 

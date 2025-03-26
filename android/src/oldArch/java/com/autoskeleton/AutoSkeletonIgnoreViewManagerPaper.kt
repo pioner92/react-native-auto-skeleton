@@ -1,19 +1,19 @@
 package com.autoskeleton.oldArch
 
-import com.autoskeleton.AutoSkeletonIgnore
-import com.autoskeleton.AutoSkeletonViewManager
+
+import AutoSkeletonIgnoreView
 import com.autoskeleton.R
 import com.facebook.react.module.annotations.ReactModule
 import com.facebook.react.uimanager.SimpleViewManager
 import com.facebook.react.uimanager.ThemedReactContext
 
-@ReactModule(name = AutoSkeletonViewManager.Companion.REACT_CLASS)
-class AutoSkeletonIgnoreViewManagerPaper : SimpleViewManager<AutoSkeletonView>() {
+@ReactModule(name = AutoSkeletonIgnoreViewManagerPaper.Companion.REACT_CLASS)
+class AutoSkeletonIgnoreViewManagerPaper : SimpleViewManager<AutoSkeletonIgnoreView>() {
 
   override fun getName() = REACT_CLASS
 
-  override fun createViewInstance(context: ThemedReactContext): AutoSkeletonView {
-    return AutoSkeletonView(context).apply {
+  override fun createViewInstance(context: ThemedReactContext): AutoSkeletonIgnoreView {
+    return AutoSkeletonIgnoreView(context).apply {
       setTag(R.id.is_my_custom_child_view,true)
     }
   }

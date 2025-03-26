@@ -1,14 +1,12 @@
 package com.autoskeleton.oldArch
 
 import com.autoskeleton.AutoSkeletonView
-import com.autoskeleton.AutoSkeletonViewManager
-import com.autoskeleton.R
 import com.facebook.react.module.annotations.ReactModule
 import com.facebook.react.uimanager.SimpleViewManager
 import com.facebook.react.uimanager.ThemedReactContext
 import com.facebook.react.uimanager.annotations.ReactProp
 
-@ReactModule(name = AutoSkeletonViewManager.Companion.REACT_CLASS)
+@ReactModule(name = AutoSkeletonViewManagerPaper.Companion.REACT_CLASS)
 class AutoSkeletonViewManagerPaper : SimpleViewManager<AutoSkeletonView>() {
 
   override fun getName() = REACT_CLASS

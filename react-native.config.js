@@ -5,6 +5,7 @@ module.exports = {
   dependency: {
     platforms: {
       android: {
+        javaPackageName: 'com.autoskeleton',
         cmakeListsPath: 'generated/jni/CMakeLists.txt',
       },
       ios: {

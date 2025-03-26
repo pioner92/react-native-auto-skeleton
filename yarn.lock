@@ -10378,8 +10378,15 @@ __metadata:
     "@react-native/typescript-config": 0.78.1
     react: 19.0.0
     react-native: 0.78.1
+    react-native-auto-skeleton: "link:../"
     react-native-builder-bob: ^0.36.0
   languageName: unknown
+  linkType: soft
+
+"react-native-auto-skeleton@link:../::locator=react-native-auto-skeleton-example%40workspace%3Aexample":
+  version: 0.0.0-use.local
+  resolution: "react-native-auto-skeleton@link:../::locator=react-native-auto-skeleton-example%40workspace%3Aexample"
+  languageName: node
   linkType: soft
 
 "react-native-auto-skeleton@workspace:.":

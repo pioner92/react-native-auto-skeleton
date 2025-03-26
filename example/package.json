@@ -11,7 +11,8 @@
   },
   "dependencies": {
     "react": "19.0.0",
-    "react-native": "0.78.1"
+    "react-native": "0.78.1",
+    "react-native-auto-skeleton": "link:../"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",

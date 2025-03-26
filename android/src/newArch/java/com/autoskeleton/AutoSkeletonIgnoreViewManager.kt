@@ -1,5 +1,6 @@
 package com.autoskeleton.newArch
 
+import AutoSkeletonIgnoreView
 import android.view.View
 import com.autoskeleton.R
 import com.facebook.react.bridge.ReactApplicationContext

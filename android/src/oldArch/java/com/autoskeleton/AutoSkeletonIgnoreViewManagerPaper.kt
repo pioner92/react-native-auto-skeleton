@@ -1,6 +1,6 @@
 package com.autoskeleton.oldArch
 
-import com.autoskeleton.AutoSkeletonView
+import com.autoskeleton.AutoSkeletonIgnore
 import com.autoskeleton.AutoSkeletonViewManager
 import com.autoskeleton.R
 import com.facebook.react.module.annotations.ReactModule

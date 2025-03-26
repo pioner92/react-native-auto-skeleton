@@ -1,6 +1,7 @@
-package com.autoskeleton
+package com.autoskeleton.newArch
 
 import android.view.View
+import com.autoskeleton.R
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.module.annotations.ReactModule
 import com.facebook.react.uimanager.IViewGroupManager
@@ -10,13 +11,13 @@ import com.facebook.react.uimanager.ViewManagerDelegate
 import com.facebook.react.viewmanagers.AutoSkeletonIgnoreViewManagerDelegate
 import com.facebook.react.viewmanagers.AutoSkeletonIgnoreViewManagerInterface
 
-
 @ReactModule(name = AutoSkeletonIgnoreViewManager.REACT_CLASS)
 class AutoSkeletonIgnoreViewManager(context: ReactApplicationContext) : SimpleViewManager<AutoSkeletonIgnoreView>(),
-  AutoSkeletonIgnoreViewManagerInterface<AutoSkeletonIgnoreView>,
-  IViewGroupManager<AutoSkeletonIgnoreView>
+    AutoSkeletonIgnoreViewManagerInterface<AutoSkeletonIgnoreView>,
+    IViewGroupManager<AutoSkeletonIgnoreView>
 {
-  private val mDelegate: ViewManagerDelegate<AutoSkeletonIgnoreView> = AutoSkeletonIgnoreViewManagerDelegate(this)
+  private val mDelegate: ViewManagerDelegate<AutoSkeletonIgnoreView> =
+      AutoSkeletonIgnoreViewManagerDelegate(this)
 
   override fun getDelegate(): ViewManagerDelegate<AutoSkeletonIgnoreView> = mDelegate
 

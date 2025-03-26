@@ -1,6 +1,6 @@
-package com.autoskeleton
-import android.content.Context
+package com.autoskeleton.newArch
 
+import android.content.Context
 import android.util.AttributeSet
 import android.view.ViewGroup
 

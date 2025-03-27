@@ -78,6 +78,15 @@ android {
     compileSdk rootProject.ext.compileSdkVersion
 
     namespace "autoskeleton.example"
+
+
+// externalNativeBuild {
+//    cmake {
+//      // Временно добавляем несуществующий файл, чтобы сборка не срабатывала
+//      path "noop/CMakeLists.txt"
+//    }
+//  }
+
     defaultConfig {
         applicationId "autoskeleton.example"
         minSdkVersion rootProject.ext.minSdkVersion

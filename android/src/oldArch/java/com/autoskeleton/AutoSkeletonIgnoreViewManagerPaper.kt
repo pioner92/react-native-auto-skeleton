@@ -4,11 +4,11 @@ package com.autoskeleton.oldArch
 import AutoSkeletonIgnoreView
 import com.autoskeleton.R
 import com.facebook.react.module.annotations.ReactModule
-import com.facebook.react.uimanager.SimpleViewManager
 import com.facebook.react.uimanager.ThemedReactContext
+import com.facebook.react.uimanager.ViewGroupManager
 
 @ReactModule(name = AutoSkeletonIgnoreViewManagerPaper.Companion.REACT_CLASS)
-class AutoSkeletonIgnoreViewManagerPaper : SimpleViewManager<AutoSkeletonIgnoreView>() {
+class AutoSkeletonIgnoreViewManagerPaper : ViewGroupManager<AutoSkeletonIgnoreView>() {
 
   override fun getName() = REACT_CLASS
 

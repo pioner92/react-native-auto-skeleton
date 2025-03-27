@@ -1,6 +1,6 @@
 {
   "name": "react-native-auto-skeleton",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "description": "🚀 Automatically generates skeleton based on your existing UI layout without manual configuration.",
   "main": "./lib/commonjs/index.js",
   "module": "./lib/module/index.js",

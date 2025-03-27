@@ -7,12 +7,15 @@
 <img src="./assets/demo.gif" width="500" alt="react-native-auto-skeleton demo" />
 </p>
 
-## ✅ Platform Support
+
+<p align="center">
+ ✅ Platform Support
 
 | Platform | Old Arch | Fabric |
 |----------|----------|--------|
 | iOS      | ✅        | ✅      |
 | Android  | ✅        | ✅      |
+</p>
 
 ## Installation
 
@@ -26,9 +29,10 @@ Using yarn:
 yarn add react-native-auto-skeleton
 ```
 
-> ⚠️ **Warning:** Warning: On Android, automatic detection of a view’s border-radius is not supported. You can override it manually via the defaultRadius prop.
-
 ## Usage
+
+
+> ⚠️ **Warning:** Warning: On Android, automatic detection of a view’s border-radius is not supported. You can override it manually via the defaultRadius prop.
 
 Here's a quick example to get started:
 

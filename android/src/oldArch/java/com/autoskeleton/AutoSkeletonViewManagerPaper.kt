@@ -1,5 +1,7 @@
 package com.autoskeleton.oldArch
 
+import android.graphics.Color
+import androidx.annotation.ColorInt
 import com.autoskeleton.AutoSkeletonView
 import com.facebook.react.module.annotations.ReactModule
 import com.facebook.react.uimanager.ThemedReactContext
@@ -26,8 +28,13 @@ class AutoSkeletonViewManagerPaper : ViewGroupManager<AutoSkeletonView>() {
   }
 
   @ReactProp(name = "shimmerBackgroundColor")
-  fun setShimmerBackgroundColor(view: AutoSkeletonView?, value: Int?) {
-    view?.setShimmerBackgroundColor(value)
+  fun setShimmerBackgroundColor(view: AutoSkeletonView?, value: String?) {
+    val color = try {
+      if (value != null) Color.parseColor(value) else  Color.GRAY
+    } catch (e: IllegalArgumentException) {
+      Color.GRAY
+    }
+    view?.setShimmerBackgroundColor(color)
   }
 
   @ReactProp(name = "defaultRadius")

@@ -2,8 +2,6 @@
 
 **`react-native-auto-skeleton`** Provides automatic skeleton loading indicators based on your existing UI components, without manual configuration..
 
-⚠️ **Currently supports only iOS. Android support is coming soon.**
-
 ## Demo
 <p align="center">
 <img src="./assets/demo.gif" width="500" alt="react-native-auto-skeleton demo" />

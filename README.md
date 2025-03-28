@@ -2,6 +2,22 @@
 
 **`react-native-auto-skeleton`** Provides automatic skeleton loading indicators based on your existing UI components, without manual configuration..
 
+<p align="center">
+  <a href="https://www.npmjs.com/package/react-native-auto-skeleton">
+    <img src="https://img.shields.io/npm/v/react-native-auto-skeleton.svg" alt="npm version" />
+  </a>
+  <a href="https://www.npmjs.com/package/react-native-auto-skeleton">
+    <img src="https://img.shields.io/npm/dm/react-native-auto-skeleton.svg" alt="npm downloads" />
+  </a>
+  <img src="https://img.shields.io/badge/platform-iOS-blue?logo=apple" alt="iOS" />
+  <img src="https://img.shields.io/badge/platform-Android-green?logo=android" alt="Android" />
+  <img src="https://img.shields.io/badge/types-TypeScript-blue?logo=typescript" alt="TypeScript" />
+  <img src="https://img.shields.io/badge/license-MIT-yellow.svg" alt="MIT License" />
+  <a href="https://bundlephobia.com/result?p=react-native-auto-skeleton">
+    <img src="https://img.shields.io/bundlephobia/minzip/react-native-auto-skeleton" alt="Bundle size" />
+  </a>
+</p>
+
 ## Demo
 <p align="center">
 <img src="./assets/demo.gif" width="500" alt="react-native-auto-skeleton demo" />

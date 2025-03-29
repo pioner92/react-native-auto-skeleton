@@ -45,7 +45,9 @@ interface IProps {
   defaultRadius?: number;
 }
 
-export const AutoSkeletonView: React.FC<IProps> = (props) => {
+export const AutoSkeletonView: React.FC<React.PropsWithChildren<IProps>> = (
+  props
+) => {
   const gColors = useMemo(() => {
     //@ts-ignore
     if (Platform.OS === 'ios' && global._IS_FABRIC === false) {

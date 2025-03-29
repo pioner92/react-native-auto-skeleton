@@ -53,7 +53,8 @@ export default function App() {
         </Text>
         <AutoSkeletonView
           shimmerSpeed={1.0}
-          shimmerBackgroundColor={'#919090'}
+          // shimmerBackgroundColor={'red'}
+          gradientColors={['#ccc', '#fff']}
           isLoading={isLoading}
         >
           <View style={s.avatarWithName}>

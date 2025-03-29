@@ -36,6 +36,12 @@ RCT_CUSTOM_VIEW_PROPERTY(shimmerBackgroundColor, UIColor, SkeletonView) {
 	view.shimmerBackgroundColor = uiColor;
 }
 
+RCT_CUSTOM_VIEW_PROPERTY(gradientColors, NSArray<UIColor>, SkeletonView) {
+  NSArray<UIColor*>* colors = json ? [RCTConvert NSArray:json] : view.gradientColors;
+
+  view.gradientColors = colors;
+}
+
 
 - (UIView *)view
 {

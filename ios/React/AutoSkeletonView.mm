@@ -79,6 +79,16 @@ using namespace facebook::react;
   if (oldViewProps.defaultRadius != newViewProps.defaultRadius) {
     [_view setDefaultCorderRadius:newViewProps.defaultRadius];
   }
+  if (oldViewProps.gradientColors != newViewProps.gradientColors &&
+      newViewProps.gradientColors.size() == 2) {
+    UIColor* color1 = RCTUIColorFromSharedColor(newViewProps.gradientColors[0]);
+
+    UIColor* color2 = RCTUIColorFromSharedColor(newViewProps.gradientColors[1]);
+
+    NSArray<UIColor*>* colors = [NSArray arrayWithObjects:color1, color2, nil];
+
+    [_view setGradientColors:colors];
+  }
 
   [super updateProps:props oldProps:oldProps];
 }

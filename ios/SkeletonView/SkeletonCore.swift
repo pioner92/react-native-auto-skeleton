@@ -10,6 +10,10 @@ import Foundation
 import UIKit
 
 
+let DEFAULT_GRADIENT_COLORS:[UIColor] = [UIColor.lightGray,UIColor.white]
+let DEFAULT_BG_COLOR = UIColor.lightGray
+
+
 @objcMembers
 public class SkeletonCore: UIView {
   public var isLoading: Bool = false {
@@ -18,9 +22,21 @@ public class SkeletonCore: UIView {
     }
   }
 
-  public var shimmerBackgroundColor: UIColor = UIColor.systemGray3  {
+  public var shimmerBackgroundColor: UIColor = DEFAULT_BG_COLOR {
     didSet {
       gradientLayer.backgroundColor = shimmerBackgroundColor.cgColor
+    }
+  }
+
+  public var gradientColors: [UIColor] = DEFAULT_GRADIENT_COLORS {
+    didSet {
+      if(gradientColors.count == 2){
+        gradientLayer.colors = [
+          gradientColors[0].cgColor,
+          gradientColors[1].cgColor,
+          gradientColors[0].cgColor,
+        ]
+      }
     }
   }
 
@@ -32,12 +48,14 @@ public class SkeletonCore: UIView {
 
   final public  let gradientLayer: CAGradientLayer = {
     let gradientLayer = CAGradientLayer()
-    gradientLayer.backgroundColor = UIColor.systemGray3.cgColor
+    gradientLayer.backgroundColor = DEFAULT_BG_COLOR.cgColor
+
     gradientLayer.colors = [
-      UIColor.white.withAlphaComponent(0).cgColor,
-      UIColor.white.withAlphaComponent(1).cgColor,
-      UIColor.white.withAlphaComponent(0).cgColor,
+      DEFAULT_GRADIENT_COLORS[0].cgColor,
+      DEFAULT_GRADIENT_COLORS[1].cgColor,
+      DEFAULT_GRADIENT_COLORS[0].cgColor
     ]
+    
     gradientLayer.startPoint = CGPoint(x: 0, y: 0.5)
     gradientLayer.endPoint = CGPoint(x: 1, y: 0.5)
 
@@ -134,19 +152,17 @@ public class SkeletonCore: UIView {
   open func startShimmer() {
     let animation = CABasicAnimation(keyPath: "colors")
 
-    let valZero = 0.0
-    let valColor = 0.9
-
     animation.fromValue = [
-      UIColor.white.withAlphaComponent(valZero).cgColor,
-      UIColor.white.withAlphaComponent(valColor).cgColor,
-      UIColor.white.withAlphaComponent(valZero).cgColor,
+      gradientColors[0].cgColor,
+      gradientColors[1].cgColor,
+      gradientColors[0].cgColor,
     ]
     animation.toValue = [
-      UIColor.white.withAlphaComponent(valColor).cgColor,
-      UIColor.white.withAlphaComponent(valZero).cgColor,
-      UIColor.white.withAlphaComponent(valColor).cgColor,
+      gradientColors[1].cgColor,
+      gradientColors[0].cgColor,
+      gradientColors[1].cgColor,
     ]
+
     animation.duration = animationSpeed
     animation.autoreverses = true
     animation.repeatCount = .infinity

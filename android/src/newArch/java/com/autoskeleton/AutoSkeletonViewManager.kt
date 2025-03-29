@@ -1,7 +1,9 @@
 package com.autoskeleton
+import android.util.Log
 import android.view.View
 
 import com.facebook.react.bridge.ReactApplicationContext
+import com.facebook.react.bridge.ReadableArray
 import com.facebook.react.module.annotations.ReactModule
 import com.facebook.react.uimanager.IViewGroupManager
 import com.facebook.react.uimanager.SimpleViewManager
@@ -37,6 +39,12 @@ class AutoSkeletonViewManager(context: ReactApplicationContext) : SimpleViewMana
   @ReactProp(name = "shimmerBackgroundColor")
   override fun setShimmerBackgroundColor(view: AutoSkeletonView?, value: Int?) {
     view?.setShimmerBackgroundColor(value)
+  }
+
+  @ReactProp(name = "gradientColors")
+  override fun setGradientColors(view: AutoSkeletonView?, value: ReadableArray?) {
+    Log.d("SKELETON","SET COLORS")
+    view?.setGradientColors(value)
   }
 
   @ReactProp(name = "defaultRadius")

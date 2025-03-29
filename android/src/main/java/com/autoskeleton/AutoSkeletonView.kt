@@ -9,9 +9,11 @@ import android.graphics.Shader
 import android.transition.Fade
 import android.transition.TransitionManager
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.LinearInterpolator
+import com.facebook.react.bridge.ReadableArray
 
 class AutoSkeletonView : ViewGroup {
   constructor(context: Context?) : super(context)
@@ -27,7 +29,7 @@ class AutoSkeletonView : ViewGroup {
   private var radius = 10f
 
   private var colorA = Color.parseColor("#DDDDDD")
-  private val colorB = Color.parseColor("#F3F3F3")
+  private var colorB = Color.parseColor("#F3F3F3")
 
   private val paint = Paint(Paint.ANTI_ALIAS_FLAG)
   private var animationFraction = 0f
@@ -62,9 +64,17 @@ class AutoSkeletonView : ViewGroup {
     }
   }
 
-
   fun setShimmerBackgroundColor(value: Int?) {
     colorA = value ?: Color.LTGRAY
+    invalidate()
+  }
+
+  fun setGradientColors(value: ReadableArray?) {
+    if(value != null){
+      Log.d("SKELETON","SET COLORS")
+      colorA = value.getInt(0)
+      colorB = value.getInt(1)
+    }
     invalidate()
   }
 

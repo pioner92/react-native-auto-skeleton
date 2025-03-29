@@ -1,6 +1,9 @@
-# react-native-auto-skeleton
+# React Native Auto Skeleton – Lightweight Skeleton Loader for React Native
 
-**`react-native-auto-skeleton`** Provides automatic skeleton loading indicators based on your existing UI components, without manual configuration..
+**`react-native-auto-skeleton`** is a modern **skeleton loader for React Native**, designed to automatically render **loading placeholders** (shimmer-style) based on your existing layout.
+
+> Ideal replacement for `react-native-skeleton-placeholder` and other manual solutions.
+
 
 <div align="center" style="max-width: 400px; margin: auto;">
   <a href="https://www.npmjs.com/package/react-native-auto-skeleton">
@@ -137,6 +140,21 @@ export default function App() {
 - Ensure components have clearly defined dimensions, backgrounds, or styles for optimal skeleton rendering.
 - To exclude specific components from skeleton rendering, wrap them with `<AutoSkeletonIgnoreView>`. Any content inside this wrapper will not be processed by the skeleton system.
 
+## 🔁 Alternative Solutions
+
+You may also know:
+
+- [`react-native-skeleton-placeholder`](https://github.com/chramos/react-native-skeleton-placeholder)
+- [`react-content-loader`](https://github.com/danilowoz/react-content-loader)
+
+If you're looking for a **React Native skeleton loader** that works **automatically**, with **Fabric support**, and no manual configuration, `react-native-auto-skeleton` is your go-to solution.
+
 ## License
 
 [MIT](LICENSE)
+
+---
+
+## 📌 Keywords
+
+React Native Skeleton, React Native Placeholder, react-native skeleton loader, react native shimmer, loading indicator React Native, Fabric placeholder view, auto skeleton view, react native content loader.

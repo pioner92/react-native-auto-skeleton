@@ -47,7 +47,7 @@ yarn add react-native-auto-skeleton
 
 ## Usage
 
-> ⚠️ **Warning:** Warning: On Android, automatic detection of a view’s border-radius is not supported. You can override it manually via the defaultRadius prop.
+> ⚠️ **Warning:** On Android, automatic detection of a view’s border-radius is not supported. You can override it manually via the defaultRadius prop.
 
 Here's a quick example to get started:
 
@@ -124,14 +124,13 @@ export default function App() {
 ```
 
 ## API
-
-| Prop                      | Type    | Default | Description                                                                                   |
-|---------------------------|---------|---------|-----------------------------------------------------------------------------------------------|
-| `isLoading`               | boolean | —       | Enables or disables the skeleton state. When `true`, skeleton placeholders will be shown.     |
-| `shimmerSpeed`            | Float   | `1.0`   | Duration of one shimmer animation cycle **in seconds**. Lower values = faster shimmer.        |
-| `shimmerBackgroundColor`  | string  | `#C7C7CC`       | Background color of skeleton shapes |
-| `gradientColors`  | [string,string]  | [`#C7C7CC`,'#ffffff']       | Gradient colors for the skeleton gradient.    
-| `defaultRadius`           | Float   | `4`     | Default corner radius for skeleton elements that don't have a defined `borderRadius`.         |
+| Prop | type | Description |
+|---|---|---|
+| **isLoading** | boolean | Enables or disables the skeleton state|
+| **shimmerSpeed** | number | Duration of one shimmer animation cycle in seconds. Lower values = faster shimmer |
+| **shimmerBackgroundColor** | string | Background color of skeleton shapes |
+| **gradientColors** | [string,string] | Gradient colors for the skeleton gradient |
+| **defaultRadius** | number | Default corner radius for skeleton elements that don't have a defined `borderRadius` |   |
 
 ## Best Practices
 

@@ -68,12 +68,12 @@ using namespace facebook::react;
     [_view setAnimationSpeed:newViewProps.shimmerSpeed];
   }
 
-  if (oldViewProps.shimmerBackgroundColor !=
-      newViewProps.shimmerBackgroundColor) {
+  if (oldViewProps.shimmerBackgroundColors !=
+      newViewProps.shimmerBackgroundColors) {
     UIColor* uiColor =
-        RCTUIColorFromSharedColor(newViewProps.shimmerBackgroundColor);
+        RCTUIColorFromSharedColor(newViewProps.shimmerBackgroundColors);
 
-    [_view setShimmerBackgroundColor:uiColor];
+    [_view setshimmerBackgroundColors:uiColor];
   }
 
   if (oldViewProps.defaultRadius != newViewProps.defaultRadius) {

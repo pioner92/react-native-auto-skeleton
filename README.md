@@ -19,6 +19,7 @@
 </div>
 
 ## Demo
+
 <p align="center">
 <img src="./assets/demo.gif" width="500" alt="react-native-auto-skeleton demo" />
 </p>
@@ -26,18 +27,20 @@
 ## ✅ Platform Support
 
 | Platform | Old Arch | Fabric |
-|----------|----------|--------|
-| iOS      | ✅        | ✅      |
-| Android  | ✅        | ✅      |
+| -------- | -------- | ------ |
+| iOS      | ✅       | ✅     |
+| Android  | ✅       | ✅     |
 
 ## Installation
 
 Using npm:
+
 ```bash
 npm install react-native-auto-skeleton
 ```
 
 Using yarn:
+
 ```bash
 yarn add react-native-auto-skeleton
 ```
@@ -47,7 +50,6 @@ yarn add react-native-auto-skeleton
 > ⚠️ **Warning:** Warning: On Android, automatic detection of a view’s border-radius is not supported. You can override it manually via the defaultRadius prop.
 
 Here's a quick example to get started:
-
 
 ```tsx
 
@@ -90,7 +92,7 @@ export default function App() {
   }, []);
 
   return (
-     <AutoSkeletonView isLoading={isLoading}>
+    <AutoSkeletonView isLoading={isLoading}>
       <View style={styles.avatarWithName}>
         <Image style={styles.avatar} source={{ uri: profile.avatar }} />
         <View style={{ flex: 1 }}>
@@ -111,9 +113,7 @@ export default function App() {
 
       {/* Alternatively, to exclude buttons from skeleton rendering: */}
       <AutoSkeletonIgnoreView>
-        <View style={styles.buttons}>
-           ...
-        </View>
+        <View style={styles.buttons}>...</View>
       </AutoSkeletonIgnoreView>
     </AutoSkeletonView>
   );
@@ -122,12 +122,12 @@ export default function App() {
 
 ## API
 
-| Prop                      | Type    | Default | Description                                                                                   |
-|---------------------------|---------|---------|-----------------------------------------------------------------------------------------------|
-| `isLoading`               | boolean | —       | Enables or disables the skeleton state. When `true`, skeleton placeholders will be shown.     |
-| `shimmerSpeed`            | Float   | `1.0`   | Duration of one shimmer animation cycle **in seconds**. Lower values = faster shimmer.        |
-| `shimmerBackgroundColor`  | string  | `#C7C7CC`       | Background color of skeleton shapes in **hex format** (e.g., `#E0E0E0`).                      |
-| `defaultRadius`           | Float   | `4`     | Default corner radius for skeleton elements that don't have a defined `borderRadius`.         |
+| Prop                      | Type             | Default              | Description                                                                               |
+| ------------------------- | ---------------- | -------------------- | ----------------------------------------------------------------------------------------- |
+| `isLoading`               | boolean          | —                    | Enables or disables the skeleton state. When `true`, skeleton placeholders will be shown. |
+| `shimmerSpeed`            | Float            | `1.0`                | Duration of one shimmer animation cycle **in seconds**. Lower values = faster shimmer.    |
+| `shimmerBackgroundColors` | [string, string] | `[#C7C7CC, #ECECEC]` | Background color of skeleton shapes in **hex format** (e.g., `#E0E0E0`).                  |
+| `defaultRadius`           | Float            | `4`                  | Default corner radius for skeleton elements that don't have a defined `borderRadius`.     |
 
 ## Best Practices
 

@@ -25,9 +25,9 @@ export interface NativeProps extends ViewProps {
    * Background color for the skeleton shapes.
    * Accepts hex color values (e.g., `#E0E0E0`).
    *
-   * @example "#E0E0E0"
+   * @example ["#E0E0E0", "#F5F5F5"]
    */
-  shimmerBackgroundColor?: ColorValue;
+  shimmerBackgroundColors?: [ColorValue, ColorValue];
 
   /**
    * Default corner radius applied to skeleton elements that don't have an explicit `borderRadius`.

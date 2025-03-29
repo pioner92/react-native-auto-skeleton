@@ -30,10 +30,10 @@ RCT_CUSTOM_VIEW_PROPERTY(shimmerSpeed, float, SkeletonView) {
 	view.animationSpeed = shimmerSpeed;
 }
 
-RCT_CUSTOM_VIEW_PROPERTY(shimmerBackgroundColor, UIColor, SkeletonView) {
-	UIColor *uiColor = json ? [RCTConvert UIColor:json] : view.shimmerBackgroundColor;
+RCT_CUSTOM_VIEW_PROPERTY(shimmerBackgroundColors, UIColor, SkeletonView) {
+	UIColor *uiColor = json ? [RCTConvert UIColor:json] : view.shimmerBackgroundColors;
 
-	view.shimmerBackgroundColor = uiColor;
+	view.shimmerBackgroundColors = uiColor;
 }
 
 

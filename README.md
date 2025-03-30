@@ -128,9 +128,10 @@ export default function App() {
 |---|---|---|
 | **isLoading** | boolean | Enables or disables the skeleton state|
 | **shimmerSpeed** | number | Duration of one shimmer animation cycle in seconds. Lower values = faster shimmer |
-| **shimmerBackgroundColor** | string | Background color of skeleton shapes |
+| **shimmerBackgroundColor** | string | Background color for animation types: `pulse` and `none` |
 | **gradientColors** | [string,string] | Gradient colors for the skeleton gradient |
 | **defaultRadius** | number | Default corner radius for skeleton elements that don't have a defined `borderRadius` |   |
+| **animationType** | `"gradient"` \| `"pulse"` \| `"none"` | Skeleton animation |   |
 
 ## Best Practices
 

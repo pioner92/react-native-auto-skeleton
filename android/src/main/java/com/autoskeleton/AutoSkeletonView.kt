@@ -9,11 +9,16 @@ import android.graphics.Shader
 import android.transition.Fade
 import android.transition.TransitionManager
 import android.util.AttributeSet
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.LinearInterpolator
 import com.facebook.react.bridge.ReadableArray
+
+enum class AnimationTypes(val value: String) {
+  GRADIENT("gradient"),
+  PULSE("pulse"),
+  NONE("none");
+}
 
 class AutoSkeletonView : ViewGroup {
   constructor(context: Context?) : super(context)
@@ -28,7 +33,12 @@ class AutoSkeletonView : ViewGroup {
   private var shimmerSpeed = 1.0f
   private var radius = 10f
 
+  private var animationType = AnimationTypes.GRADIENT
+
+  private var shapesBackgroundColor = Color.parseColor("#DDDDDD")
+
   private var colorA = Color.parseColor("#DDDDDD")
+
   private var colorB = Color.parseColor("#F3F3F3")
 
   private val paint = Paint(Paint.ANTI_ALIAS_FLAG)
@@ -42,7 +52,6 @@ class AutoSkeletonView : ViewGroup {
 
   fun setIsLoading(value: Boolean) {
     if (isLoading == value) return
-
     isLoading = value
 
     if(value){
@@ -65,25 +74,33 @@ class AutoSkeletonView : ViewGroup {
   }
 
   fun setShimmerBackgroundColor(value: Int?) {
-    colorA = value ?: Color.LTGRAY
+    shapesBackgroundColor = value ?: Color.LTGRAY
+    paint.color = shapesBackgroundColor
     invalidate()
   }
 
   fun setGradientColors(value: ReadableArray?) {
     if(value != null){
-      Log.d("SKELETON","SET COLORS")
       colorA = value.getInt(0)
       colorB = value.getInt(1)
     }
     invalidate()
   }
 
-
   fun setDefaultRadius(value: Float) {
     radius = value
     invalidate()
   }
 
+  fun setAnimationType(value: String?) {
+    animationType = AnimationTypes.values().find {
+      it.value.equals(value, ignoreCase = true)
+    } ?: AnimationTypes.GRADIENT
+
+    paint.shader = null
+    paint.alpha = 255
+    invalidate()
+  }
 
   override fun onDetachedFromWindow() {
     super.onDetachedFromWindow()
@@ -93,13 +110,31 @@ class AutoSkeletonView : ViewGroup {
   private fun startShimmer() {
     if (animator != null) return
 
-    animator = ValueAnimator.ofFloat(-width.toFloat(), width.toFloat()).apply {
+    animator = ValueAnimator.ofFloat(0.0f,1.0f).apply {
       duration = (shimmerSpeed * 1000).toLong()
       repeatMode = ValueAnimator.REVERSE
       repeatCount = ValueAnimator.INFINITE
       interpolator = LinearInterpolator()
       addUpdateListener {
         animationFraction = it.animatedFraction
+
+        when(animationType){
+          AnimationTypes.GRADIENT ->{
+            val shader = LinearGradient(
+              0f, 0f, width.toFloat(), 0f,
+              intArrayOf(blendColors(colorA,colorB,animationFraction), blendColors(colorB,colorA,animationFraction), blendColors(colorA,colorB,animationFraction)),
+              floatArrayOf(0f, 0.5f, 1f),
+              Shader.TileMode.CLAMP
+            )
+            paint.shader = shader
+          }
+          AnimationTypes.PULSE -> {
+            val scaled = 0.5f + animationFraction * 0.5f
+            paint.alpha = (scaled * 255).toInt().coerceIn(0, 255)
+          }
+          AnimationTypes.NONE -> {}
+        }
+
         invalidate()
       }
       start()
@@ -137,15 +172,6 @@ class AutoSkeletonView : ViewGroup {
 
   override fun dispatchDraw(canvas: Canvas) {
     super.dispatchDraw(canvas)
-
-    val shader = LinearGradient(
-      0f, 0f, width.toFloat(), 0f,
-      intArrayOf(blendColors(colorA,colorB,animationFraction), blendColors(colorB,colorA,animationFraction), blendColors(colorA,colorB,animationFraction)),
-      floatArrayOf(0f, 0.5f, 1f),
-      Shader.TileMode.CLAMP
-    )
-
-    paint.shader = shader
 
     if(!isLoading){
       TransitionManager.beginDelayedTransition(this, Fade().apply {

@@ -51,6 +51,13 @@ class AutoSkeletonViewManager(context: ReactApplicationContext) : SimpleViewMana
   override fun setDefaultRadius(view: AutoSkeletonView?, value: Float) {
     view?.setDefaultRadius(value)
   }
+
+  @ReactProp(name = "animationType")
+  override fun setAnimationType(view: AutoSkeletonView?, value: String?) {
+    view?.setAnimationType(value)
+  }
+
+
   companion object {
     const val REACT_CLASS = "AutoSkeletonView"
   }

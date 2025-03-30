@@ -46,7 +46,7 @@ using namespace facebook::react;
 
     _view = [[SkeletonViewFabric alloc] init];
 
-    [_view initOriginalViewsWithViews:self.subviews];
+    [_view initOriginalViewsWithSubviews:self.subviews];
 
     self.contentView = _view;
   }
@@ -62,10 +62,10 @@ using namespace facebook::react;
       *std::static_pointer_cast<AutoSkeletonViewProps const>(props);
 
   if (oldViewProps.isLoading != newViewProps.isLoading) {
-    [_view setIsLoading:newViewProps.isLoading];
+    _view.isLoading = newViewProps.isLoading;
   }
   if (oldViewProps.shimmerSpeed != newViewProps.shimmerSpeed) {
-    [_view setAnimationSpeed:newViewProps.shimmerSpeed];
+    _view.animationSpeed = newViewProps.shimmerSpeed;
   }
 
   if (oldViewProps.shimmerBackgroundColor !=
@@ -73,21 +73,29 @@ using namespace facebook::react;
     UIColor* uiColor =
         RCTUIColorFromSharedColor(newViewProps.shimmerBackgroundColor);
 
-    [_view setShimmerBackgroundColor:uiColor];
+    _view.shapesBackgroundColor = uiColor;
   }
 
   if (oldViewProps.defaultRadius != newViewProps.defaultRadius) {
-    [_view setDefaultCorderRadius:newViewProps.defaultRadius];
+    _view.defaultCorderRadius = newViewProps.defaultRadius;
   }
-  if (oldViewProps.gradientColors != newViewProps.gradientColors &&
-      newViewProps.gradientColors.size() == 2) {
-    UIColor* color1 = RCTUIColorFromSharedColor(newViewProps.gradientColors[0]);
 
-    UIColor* color2 = RCTUIColorFromSharedColor(newViewProps.gradientColors[1]);
+  if (oldViewProps.animationType != newViewProps.animationType) {
+    _view.animationType = [NSString
+                           stringWithUTF8String:newViewProps.animationType
+      .c_str()];
+  }
 
-    NSArray<UIColor*>* colors = [NSArray arrayWithObjects:color1, color2, nil];
-
-    [_view setGradientColors:colors];
+  if (oldViewProps.gradientColors != newViewProps.gradientColors) {
+    if (newViewProps.gradientColors.size() == 2) {
+      UIColor* color1 =
+          RCTUIColorFromSharedColor(newViewProps.gradientColors.at(0));
+      UIColor* color2 =
+          RCTUIColorFromSharedColor(newViewProps.gradientColors.at(1));
+      NSArray<UIColor*>* colors =
+          [NSArray arrayWithObjects:color1, color2, nil];
+      [_view setGradientColors:colors];
+    }
   }
 
   [super updateProps:props oldProps:oldProps];

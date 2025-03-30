@@ -41,6 +41,17 @@ export interface NativeProps extends ViewProps {
    * @default 4
    */
   defaultRadius?: Float;
+
+  /**
+   * The animation type to use for the skeleton view.
+   *
+   * - `gradient`: A gradient animation.
+   * - `pulse`: A pulse animation.
+   * - `none`: No animation.
+   *
+   * @default 'gradient'
+   */
+  animationType?: string;
 }
 
 export default codegenNativeComponent<NativeProps>('AutoSkeletonView');

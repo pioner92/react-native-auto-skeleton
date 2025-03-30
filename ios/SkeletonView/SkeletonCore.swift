@@ -1,79 +1,91 @@
-  //
-  //  SkeletonView.swift
-  //  intch_application
-  //
-  //  Created by Oleksandr Shumihin on 21/3/25.
-  //  Copyright © 2025 Facebook. All rights reserved.
-  //
+//
+//  SkeletonView.swift
+//  intch_application
+//
+//  Created by Oleksandr Shumihin on 21/3/25.
+//  Copyright © 2025 Facebook. All rights reserved.
+//
 
 import Foundation
 import UIKit
 
-
-let DEFAULT_GRADIENT_COLORS:[UIColor] = [UIColor.lightGray,UIColor.white]
+let DEFAULT_GRADIENT_COLORS: [UIColor] = [UIColor.lightGray, UIColor.white]
 let DEFAULT_BG_COLOR = UIColor.lightGray
 
+enum AnimationTypes:String {
+  case gradient
+  case pulse
+  case none
+}
 
 @objcMembers
-public class SkeletonCore: UIView {
+public class SkeletonCore: UIView, PlaceholderMaskDelegate {
+  var mainLayer = CAShapeLayer()
+  var views: [UIView] = []
+
+  private let placeholderMask = SkeletonPlaceholderMask()
+
+  private var animator: SkeletonAnimatable = AnimationGradient()
+
   public var isLoading: Bool = false {
     didSet {
-      isLoading ? showPlaceholder() : hidePlaceholder()
+      DispatchQueue.main.async {
+        self.isLoading ? self.showPlaceholder() : self.hidePlaceholder()
+      }
     }
   }
 
-  public var shimmerBackgroundColor: UIColor = DEFAULT_BG_COLOR {
+  public var shapesBackgroundColor: UIColor = DEFAULT_BG_COLOR {
     didSet {
-      gradientLayer.backgroundColor = shimmerBackgroundColor.cgColor
+      mainLayer.backgroundColor = shapesBackgroundColor.cgColor
     }
   }
 
   public var gradientColors: [UIColor] = DEFAULT_GRADIENT_COLORS {
     didSet {
-      if(gradientColors.count == 2){
-        gradientLayer.colors = [
-          gradientColors[0].cgColor,
-          gradientColors[1].cgColor,
-          gradientColors[0].cgColor,
-        ]
-      }
+      guard let animator = animator as? AnimationGradient else { return }
+      animator.restart()
     }
   }
 
-  public var animationSpeed: TimeInterval = 1.0
+  public var animationSpeed: TimeInterval = 1.0 {
+    didSet {
+      animator.duration = animationSpeed
+    }
+  }
 
-  open var originalViews: [UIView] = []
+  public var defaultCorderRadius = 4.0 {
+    didSet {
+      placeholderMask.defaultBorderRadius = defaultCorderRadius
+    }
+  }
 
-  public var defaultCorderRadius = 4.0
+  public var animationType: String = AnimationTypes.gradient.rawValue {
+    didSet {
+      guard let type = AnimationTypes(rawValue: animationType) else {
+        setAnimatorByAnimationType(type: AnimationTypes.gradient)
+        return
+      }
 
-  final public  let gradientLayer: CAGradientLayer = {
-    let gradientLayer = CAGradientLayer()
-    gradientLayer.backgroundColor = DEFAULT_BG_COLOR.cgColor
-
-    gradientLayer.colors = [
-      DEFAULT_GRADIENT_COLORS[0].cgColor,
-      DEFAULT_GRADIENT_COLORS[1].cgColor,
-      DEFAULT_GRADIENT_COLORS[0].cgColor
-    ]
-    
-    gradientLayer.startPoint = CGPoint(x: 0, y: 0.5)
-    gradientLayer.endPoint = CGPoint(x: 1, y: 0.5)
-
-    gradientLayer.locations = [0, 0.5, 1]
-
-    return gradientLayer
-  }()
+      setAnimatorByAnimationType(type: type)
+    }
+  }
 
   override public init(frame: CGRect) {
     super.init(frame: frame)
-    layer.addSublayer(gradientLayer)
-    gradientLayer.isHidden = true
+    commonInit()
   }
 
   public required init?(coder: NSCoder) {
     super.init(coder: coder)
-    layer.addSublayer(gradientLayer)
-    gradientLayer.isHidden = true
+    commonInit()
+  }
+
+  func commonInit(){
+    layer.addSublayer(mainLayer)
+    mainLayer.isHidden = true
+    placeholderMask.delegate = self
+    animator.delegate = self
   }
 
   override public func didMoveToWindow() {
@@ -82,15 +94,41 @@ public class SkeletonCore: UIView {
 
   override public func layoutSubviews() {
     super.layoutSubviews()
-    gradientLayer.frame = bounds
+    mainLayer.frame = bounds
+
+    animator.updateBounds(bounds: bounds)
   }
 
-  open func initOriginalViews(views: [UIView]) {
-    originalViews.removeAll()
 
-    originalViews = views.filter {
+  private func setAnimatorByAnimationType(type:AnimationTypes) {
+    switch type {
+      case .gradient:
+        setAnimator(AnimationGradient())
+        break
+      case .pulse:
+        setAnimator(AnimationPulse())
+        break
+      case .none:
+        setAnimator(AnimationNone())
+        break
+    }
+  }
 
-      if($0.accessibilityIdentifier == Constants.IGNORE_VIEW_NAME) {
+  private func setAnimator(_ animator: SkeletonAnimatable) {
+    self.animator.stop()
+    self.animator = animator
+    self.animator.delegate = self
+
+    if(isLoading){
+      self.animator.start()
+    }
+  }
+
+  public func initOriginalViews(subviews: [UIView]) {
+    views.removeAll()
+
+    views = subviews.filter {
+      if $0.accessibilityIdentifier == Constants.IGNORE_VIEW_NAME {
         return false
       }
 
@@ -107,70 +145,23 @@ public class SkeletonCore: UIView {
     }
   }
 
-  open func showPlaceholder() {
-    self.gradientLayer.isHidden = false
-    applyMask()
+  func showPlaceholder() {
+    mainLayer.isHidden = false
+    placeholderMask.applyMask()
 
     UIView.transition(with: self, duration: 0.2, options: [.transitionCrossDissolve], animations: {
-      self.originalViews.forEach { $0.isHidden = true }
+      self.views.forEach { $0.isHidden = true }
     }, completion: { _ in
-      self.startShimmer()
+      self.animator.start()
     })
   }
 
-  open func applyMask() {
-    let maskLayer = CAShapeLayer()
-
-    maskLayer.frame = bounds
-
-    let combinedPath = UIBezierPath()
-
-    for originalView in originalViews {
-      let convertedFrame = originalView.frame
-
-      let radius = originalView.layer.cornerRadius > 0 ? originalView.layer.cornerRadius : defaultCorderRadius
-
-      let path = UIBezierPath(roundedRect: convertedFrame,
-                              cornerRadius: radius)
-
-      combinedPath.append(path)
-    }
-
-    maskLayer.path = combinedPath.cgPath
-    gradientLayer.mask = maskLayer
-  }
-
-  open func hidePlaceholder() {
+  func hidePlaceholder() {
     UIView.transition(with: self, duration: 0.2, options: [.transitionCrossDissolve], animations: {
-      self.gradientLayer.isHidden = true
-      self.originalViews.forEach { $0.isHidden = false }
+      self.mainLayer.isHidden = true
+      self.views.forEach { $0.isHidden = false }
     }, completion: { _ in
-      self.stopShimmer()
+      self.animator.stop()
     })
-  }
-
-  open func startShimmer() {
-    let animation = CABasicAnimation(keyPath: "colors")
-
-    animation.fromValue = [
-      gradientColors[0].cgColor,
-      gradientColors[1].cgColor,
-      gradientColors[0].cgColor,
-    ]
-    animation.toValue = [
-      gradientColors[1].cgColor,
-      gradientColors[0].cgColor,
-      gradientColors[1].cgColor,
-    ]
-
-    animation.duration = animationSpeed
-    animation.autoreverses = true
-    animation.repeatCount = .infinity
-
-    gradientLayer.add(animation, forKey: "alphaGradientAnimation")
-  }
-
-  private func stopShimmer() {
-    gradientLayer.removeAnimation(forKey: "alphaGradientAnimation")
   }
 }

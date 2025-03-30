@@ -12,7 +12,7 @@ import UIKit
 
 
 @objcMembers
-public class SkeletonView: SkeletonCore {
+public class SkeletonViewOldArch: SkeletonCore {
 
 	override public func layoutSubviews() {
 		super.layoutSubviews()
@@ -20,7 +20,7 @@ public class SkeletonView: SkeletonCore {
 		DispatchQueue.main.async {
 			let views = self.flattenSubviews(from: self.subviews)
 
-			self.initOriginalViews(views: views)
+      self.initOriginalViews(subviews: views)
 
 			if self.isLoading {
 				self.showPlaceholder()

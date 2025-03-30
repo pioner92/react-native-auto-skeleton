@@ -60,6 +60,11 @@ class AutoSkeletonViewManagerPaper : ViewGroupManager<AutoSkeletonView>() {
     view?.setDefaultRadius(value)
   }
 
+  @ReactProp(name = "animationType")
+  fun animationType(view: AutoSkeletonView?, value: String?) {
+    view?.setAnimationType(value)
+  }
+
   companion object {
     const val REACT_CLASS = "AutoSkeletonView"
   }

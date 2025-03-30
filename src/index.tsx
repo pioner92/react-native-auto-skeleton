@@ -3,6 +3,7 @@ export { default as AutoSkeletonIgnoreView } from './AutoSkeletonIgnoreViewNativ
 import { ColorValue, Platform, processColor } from 'react-native';
 import { default as AutoSkeletonView__ } from './AutoSkeletonViewNativeComponent';
 import { useMemo } from 'react';
+import React from 'react';
 
 interface IProps {
   /**
@@ -43,21 +44,43 @@ interface IProps {
    * @default 4
    */
   defaultRadius?: number;
+
+  /**
+   * The animation type to use for the skeleton view.
+   *
+   * - `gradient`: A gradient animation.
+   * - `pulse`: A pulse animation.
+   * - `none`: No animation.
+   *
+   * @default 'gradient'
+   */
+  animationType?: 'gradient' | 'pulse' | 'none';
 }
 
-export const AutoSkeletonView: React.FC<React.PropsWithChildren<IProps>> = (
-  props
-) => {
-  const gColors = useMemo(() => {
-    //@ts-ignore
-    if (Platform.OS === 'ios' && global._IS_FABRIC === false) {
-      return props.gradientColors?.map((color) => processColor(color)) as
-        | ColorValue[]
-        | undefined;
-    }
+const DEFAULT_GRADIENT_COLORS: ColorValue[] = ['#D3D3D3', '#FFFFFF'];
+const DEFAULT_BORDER_RADIUS = 4;
+const DEFAULT_ANIMATION_DURATION = 1.0; // seconds
 
-    return props.gradientColors;
-  }, [props.gradientColors]);
+export const AutoSkeletonView: React.FC<React.PropsWithChildren<IProps>> =
+  React.memo((props) => {
+    const gColors = useMemo(() => {
+      //@ts-ignore
+      if (Platform.OS === 'ios' && global._IS_FABRIC === false) {
+        return (props.gradientColors ?? DEFAULT_GRADIENT_COLORS).map((color) =>
+          processColor(color)
+        ) as ColorValue[];
+      }
 
-  return <AutoSkeletonView__ {...props} gradientColors={gColors} />;
-};
+      return props.gradientColors ?? DEFAULT_GRADIENT_COLORS;
+    }, [props.gradientColors]);
+
+    return (
+      <AutoSkeletonView__
+        {...props}
+        gradientColors={gColors}
+        shimmerBackgroundColor={props.shimmerBackgroundColor ?? '#CECECE'}
+        defaultRadius={props.defaultRadius ?? DEFAULT_BORDER_RADIUS}
+        shimmerSpeed={props.shimmerSpeed ?? DEFAULT_ANIMATION_DURATION}
+      />
+    );
+  });

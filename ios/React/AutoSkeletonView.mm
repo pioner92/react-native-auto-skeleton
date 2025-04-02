@@ -32,6 +32,7 @@ using namespace facebook::react;
 - (instancetype)init {
   if (self = [super init]) {
     _view = [SkeletonViewFabric new];
+    _view.userInteractionEnabled = NO;
 
     self.contentView = _view;
   }
@@ -44,7 +45,8 @@ using namespace facebook::react;
         std::make_shared<const AutoSkeletonViewProps>();
     _props = defaultProps;
 
-    _view = [[SkeletonViewFabric alloc] init];
+    _view = [SkeletonViewFabric new];
+    _view.userInteractionEnabled = NO;
 
     [_view initOriginalViewsWithSubviews:self.subviews];
 

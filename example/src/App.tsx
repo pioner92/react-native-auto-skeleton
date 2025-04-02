@@ -56,7 +56,7 @@ export default function App() {
           // defaultRadius={20}
           // shimmerBackgroundColor={'#cccc'}
           // gradientColors={['red', 'blue']}
-          animationType={'none'} // 'gradient' | 'pulse' | 'none'
+          animationType={'gradient'} // 'gradient' | 'pulse' | 'none'
           isLoading={isLoading}
         >
           <View style={s.avatarWithName}>

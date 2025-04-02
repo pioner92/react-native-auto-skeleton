@@ -34,6 +34,7 @@ using namespace facebook::react;
     self.accessibilityIdentifier = Constants.IGNORE_VIEW_NAME;
 
     _view = [UIView new];
+    _view.userInteractionEnabled = NO;
     self.contentView = _view;
   }
   return self;
@@ -47,7 +48,8 @@ using namespace facebook::react;
 
     self.accessibilityIdentifier = Constants.IGNORE_VIEW_NAME;
 
-    _view = [[UIView alloc] init];
+    _view = [UIView new];
+    _view.userInteractionEnabled = NO;
 
     self.contentView = _view;
   }

@@ -53,7 +53,9 @@ RCT_CUSTOM_VIEW_PROPERTY(animationType, NSString, SkeletonViewOldArch) {
 }
 
 - (UIView*)view {
-  return [SkeletonViewOldArch new];
+  SkeletonViewOldArch* view =  [SkeletonViewOldArch new];
+  view.userInteractionEnabled = NO;
+  return view;
 }
 
 RCT_EXPORT_VIEW_PROPERTY(color, NSString)
@@ -73,6 +75,7 @@ RCT_EXPORT_MODULE(AutoSkeletonIgnoreView)
 
 - (UIView*)view {
   UIView* view = [UIView new];
+  view.userInteractionEnabled = NO;
   view.accessibilityIdentifier = Constants.IGNORE_VIEW_NAME;
   return view;
 }

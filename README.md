@@ -44,6 +44,8 @@ Using yarn:
 ```bash
 yarn add react-native-auto-skeleton
 ```
+### Expo
+This library works in Expo (with `expo prebuild`) without additional configuration.
 
 ## Usage
 

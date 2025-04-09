@@ -9,7 +9,7 @@ import Foundation
 
 
 class AnimationBase:SkeletonAnimatable {
-  weak var delegate: SkeletonRenderable?
+  weak var delegate: SkeletonAnimatableDelegate?
   var isAnimating = false
 
   var animatedLayer: CALayer? {

@@ -19,7 +19,7 @@ enum AnimationTypes:String {
 }
 
 @objcMembers
-public class SkeletonCore: UIView, PlaceholderMaskDelegate {
+public class SkeletonCore: UIView, PlaceholderMaskDelegate, SkeletonAnimatableDelegate {
   var mainLayer = CAShapeLayer()
   var views: [UIView] = []
 

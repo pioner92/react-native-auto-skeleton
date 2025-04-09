@@ -10,7 +10,7 @@ import Foundation
 private let ANIMATION_NAME = "alphaGradientAnimation"
 
 
-class AnimationGradient: AnimationBase {
+final class AnimationGradient: AnimationBase {
 
   override var animatedLayer: CALayer? { gradientLayer }
 

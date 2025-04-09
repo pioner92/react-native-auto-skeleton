@@ -7,8 +7,13 @@
 
 protocol SkeletonRenderable: AnyObject {
   var mainLayer: CAShapeLayer { get set }
+}
+
+protocol SkeletonGradientSupporting: AnyObject {
   var gradientColors: [UIColor] { get set }
 }
+
+typealias SkeletonAnimatableDelegate = SkeletonRenderable & SkeletonGradientSupporting
 
 protocol SkeletonAnimatableBase {
   var animatedLayer: CALayer? { get }
@@ -20,7 +25,7 @@ protocol SkeletonAnimatableBase {
 
 protocol SkeletonAnimatable:SkeletonAnimatableBase {
   var duration: TimeInterval { get set }
-  var delegate: SkeletonRenderable? { get set }
+  var delegate: SkeletonAnimatableDelegate? { get set }
   var animatedLayer: CALayer? { get }
   func start()
   func stop()

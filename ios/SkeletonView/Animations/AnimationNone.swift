@@ -10,7 +10,7 @@
 import Foundation
 
 
-class AnimationNone: AnimationBase {
+final class AnimationNone: AnimationBase {
   override var animatedLayer: CALayer? {
     return delegate?.mainLayer
   }

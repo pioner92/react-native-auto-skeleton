@@ -7,7 +7,7 @@
 
 import Foundation
 
-class SkeletonPlaceholderMask {
+final class SkeletonPlaceholderMask {
   weak var delegate: PlaceholderMaskDelegate?
 
   var defaultBorderRadius: CGFloat = 4.0 {

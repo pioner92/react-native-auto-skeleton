@@ -10,7 +10,7 @@ import Foundation
 
 private let ANIMATION_NAME = "animationPulse"
 
-class AnimationPulse: AnimationBase {
+final class AnimationPulse: AnimationBase {
   override var animatedLayer: CALayer? {
     return delegate?.mainLayer
   }

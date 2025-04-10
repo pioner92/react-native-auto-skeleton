@@ -1,8 +1,7 @@
-package com.autoskeleton.newArch
+package com.autoskeleton
 
 import AutoSkeletonIgnoreView
 import android.view.View
-import com.autoskeleton.R
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.module.annotations.ReactModule
 import com.facebook.react.uimanager.IViewGroupManager

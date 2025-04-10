@@ -1,7 +1,6 @@
-package com.autoskeleton.oldArch
+package com.autoskeleton
 
 import android.graphics.Color
-import com.autoskeleton.AutoSkeletonView
 import com.facebook.react.bridge.Arguments
 import com.facebook.react.bridge.ReadableArray
 import com.facebook.react.bridge.WritableArray
@@ -10,9 +9,10 @@ import com.facebook.react.uimanager.ThemedReactContext
 import com.facebook.react.uimanager.ViewGroupManager
 import com.facebook.react.uimanager.annotations.ReactProp
 import androidx.core.graphics.toColorInt
+import com.facebook.react.bridge.ReactApplicationContext
 
-@ReactModule(name = AutoSkeletonViewManagerPaper.Companion.REACT_CLASS)
-class AutoSkeletonViewManagerPaper : ViewGroupManager<AutoSkeletonView>() {
+@ReactModule(name = AutoSkeletonViewManager.Companion.REACT_CLASS)
+class AutoSkeletonViewManager(context: ReactApplicationContext) : ViewGroupManager<AutoSkeletonView>() {
 
   override fun getName() = REACT_CLASS
 

@@ -13,11 +13,11 @@ Pod::Spec.new do |s|
   s.platforms    = { :ios => min_ios_version_supported }
   s.source       = { :git => "https://github.com/pioner92/react-native-auto-skeleton.git", :tag => "#{s.version}" }
 
-
+  s.static_framework = true
+  s.swift_version = "5.0"
+  s.module_name = "react_native_auto_skeleton"
   s.source_files    = "ios/**/*.{m,mm,cpp,swift}"
-
   s.private_header_files = "ios/generated/**/*.h"
-
 
   s.pod_target_xcconfig = {
     "DEFINES_MODULE" => "YES",
@@ -25,6 +25,7 @@ Pod::Spec.new do |s|
     "CLANG_CXX_LANGUAGE_STANDARD" => "c++17",
   }
 
+  
 
   s.preserve_paths = [
     "ios/**/*.h"

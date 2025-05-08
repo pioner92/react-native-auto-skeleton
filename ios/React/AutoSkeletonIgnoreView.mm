@@ -10,7 +10,11 @@
 #import <React/RCTViewManager.h>
 #import <React/RCTUIManager.h>
 #import "RCTBridge.h"
+#if __has_include(<react_native_auto_skeleton/react_native_auto_skeleton-Swift.h>)
+#import <react_native_auto_skeleton/react_native_auto_skeleton-Swift.h>
+#else
 #import "react_native_auto_skeleton-Swift.h"
+#endif
 
 
 using namespace facebook::react;

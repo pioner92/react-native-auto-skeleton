@@ -82,15 +82,9 @@ android {
   sourceSets {
     main {
       if (isNewArchitectureEnabled()) {
-        java.srcDirs += [
-                "src/newArch/java",
-                "generated/java",
-                "generated/jni"
-        ]
+        java.srcDirs += ["src/newArch/java", "generated"]
       } else {
-        java.srcDirs += [
-                "src/oldArch/java"
-        ]
+        java.srcDirs += ["src/oldArch/java"]
       }
     }
   }
@@ -104,6 +98,7 @@ repositories {
 def kotlin_version = getExtOrDefault("kotlinVersion")
 
 dependencies {
+  implementation 'com.facebook.react:react-native:+'
   implementation "com.facebook.react:react-android"
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }

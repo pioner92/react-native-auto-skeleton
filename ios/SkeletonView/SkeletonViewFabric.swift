@@ -15,7 +15,10 @@ public class SkeletonViewFabric: SkeletonCore {
     super.didMoveToWindow()
 
     guard let superview else { return }
-
+    if  self.window == nil {
+        hidePlaceholder()
+        return
+    }
     initOriginalViews(subviews: superview.subviews)
 
     if isLoading {

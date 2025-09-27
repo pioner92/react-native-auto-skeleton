@@ -128,15 +128,15 @@ dependencies {
 }
 
 // Run Codegen during development for the example app.
-tasks.register('invokeLibraryCodegen', Exec) {
-  workingDir "$rootDir/../../"
-  def isWindows = System.getProperty('os.name').toLowerCase().contains('windows')
+//tasks.register('invokeLibraryCodegen', Exec) {
+//  workingDir "$rootDir/../../"
+//  def isWindows = System.getProperty('os.name').toLowerCase().contains('windows')
+//
+//  if (isWindows) {
+//    commandLine 'cmd', '/c', 'npx bob build --target codegen'
+//  } else {
+//    commandLine 'sh', '-c', 'npx bob build --target codegen'
+//  }
+//}
 
-  if (isWindows) {
-    commandLine 'cmd', '/c', 'npx bob build --target codegen'
-  } else {
-    commandLine 'sh', '-c', 'npx bob build --target codegen'
-  }
-}
-
-preBuild.dependsOn invokeLibraryCodegen
+//preBuild.dependsOn invokeLibraryCodegen

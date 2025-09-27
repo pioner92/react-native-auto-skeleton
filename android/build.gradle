@@ -82,7 +82,7 @@ android {
   sourceSets {
     main {
       if (isNewArchitectureEnabled()) {
-        java.srcDirs += ["src/newArch/java", "generated", "build/generated/source/codegen/java", "src/fabric"]
+        java.srcDirs += ["src/newArch/java", "build/generated/source/codegen", "src/fabric"]
       } else {
         java.srcDirs += ["src/oldArch/java"]
       }
@@ -103,11 +103,14 @@ dependencies {
 }
 
 
-if(isNewArchitectureEnabled()){
-  react {
-    jsRootDir = file("../src/")
-    libraryName = "AutoSkeletonView"
-    codegenJavaPackageName = "com.autoskeleton"
-  }
-}
+// if(isNewArchitectureEnabled()){
+//   react {
+//     jsRootDir = file("$projectDir/../src")
+//     libraryName = "AutoSkeletonView"
+//     codegenJavaPackageName = "com.autoskeleton"
+//   }
+//   sourceSets {
+//     main { java.srcDirs += ["build/generated/source/codegen/java"] }
+//   }
+// }
 

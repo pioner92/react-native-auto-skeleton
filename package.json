@@ -194,16 +194,11 @@
   },
   "codegenConfig": {
     "name": "RNAutoSkeletonViewSpec",
-    "type": "all",
+    "type": "components",
     "jsSrcsDir": "src",
-    "outputDir": {
-      "ios": "ios/generated",
-      "android": "android/generated"
-    },
     "android": {
       "javaPackageName": "com.autoskeleton"
-    },
-    "includesGeneratedCode": true
+    }
   },
   "create-react-native-library": {
     "languages": "kotlin-objc",

@@ -1,9 +1,9 @@
 #import "AutoSkeletonIgnoreView.h"
 
-#import "../generated/RNAutoSkeletonViewSpec/ComponentDescriptors.h"
-#import "../generated/RNAutoSkeletonViewSpec/EventEmitters.h"
-#import "../generated/RNAutoSkeletonViewSpec/Props.h"
-#import "../generated/RNAutoSkeletonViewSpec/RCTComponentViewHelpers.h"
+#import "react/renderer/components/RNAutoSkeletonViewSpec/ComponentDescriptors.h"
+#import "react/renderer/components/RNAutoSkeletonViewSpec/EventEmitters.h"
+#import "react/renderer/components/RNAutoSkeletonViewSpec/Props.h"
+#import "react/renderer/components/RNAutoSkeletonViewSpec/RCTComponentViewHelpers.h"
 
 #import "RCTFabricComponentsPlugins.h"
 

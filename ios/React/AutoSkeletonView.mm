@@ -1,9 +1,9 @@
 #import "AutoSkeletonView.h"
 
-#import "../generated/RNAutoSkeletonViewSpec/ComponentDescriptors.h"
-#import "../generated/RNAutoSkeletonViewSpec/EventEmitters.h"
-#import "../generated/RNAutoSkeletonViewSpec/Props.h"
-#import "../generated/RNAutoSkeletonViewSpec/RCTComponentViewHelpers.h"
+#import "react/renderer/components/RNAutoSkeletonViewSpec/ComponentDescriptors.h"
+#import "react/renderer/components/RNAutoSkeletonViewSpec/EventEmitters.h"
+#import "react/renderer/components/RNAutoSkeletonViewSpec/Props.h"
+#import "react/renderer/components/RNAutoSkeletonViewSpec/RCTComponentViewHelpers.h"
 
 #import "RCTFabricComponentsPlugins.h"
 #if __has_include(<react_native_auto_skeleton/react_native_auto_skeleton-Swift.h>)
@@ -33,15 +33,6 @@ using namespace facebook::react;
       AutoSkeletonViewComponentDescriptor>();
 }
 
-- (instancetype)init {
-  if (self = [super init]) {
-    _view = [SkeletonViewFabric new];
-    _view.userInteractionEnabled = NO;
-
-    self.contentView = _view;
-  }
-  return self;
-}
 
 - (instancetype)initWithFrame:(CGRect)frame {
   if (self = [super initWithFrame:frame]) {
@@ -51,8 +42,6 @@ using namespace facebook::react;
 
     _view = [SkeletonViewFabric new];
     _view.userInteractionEnabled = NO;
-
-    [_view initOriginalViewsWithSubviews:self.subviews];
 
     self.contentView = _view;
   }

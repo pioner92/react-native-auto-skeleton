@@ -17,7 +17,6 @@ Pod::Spec.new do |s|
   s.swift_version = "5.0"
   s.module_name = "react_native_auto_skeleton"
   s.source_files    = "ios/**/*.{m,mm,cpp,swift}"
-  s.private_header_files = "ios/generated/**/*.h"
 
   s.pod_target_xcconfig = {
     "DEFINES_MODULE" => "YES",

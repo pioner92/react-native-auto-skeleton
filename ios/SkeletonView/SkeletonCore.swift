@@ -128,11 +128,11 @@ public class SkeletonCore: UIView, PlaceholderMaskDelegate, SkeletonAnimatableDe
     views.removeAll()
 
     views = subviews.filter {
-      if $0.accessibilityIdentifier == Constants.IGNORE_VIEW_NAME {
+      if $0.accessibilityIdentifier == Constants.IGNORE_VIEW_NAME || ($0 is SkeletonCore) {
         return false
       }
 
-      if $0.backgroundColor != nil && $0.backgroundColor != .clear && !($0 is SkeletonCore) {
+      if hasBGColor($0) {
         return true
       }
 
@@ -163,5 +163,10 @@ public class SkeletonCore: UIView, PlaceholderMaskDelegate, SkeletonAnimatableDe
     }, completion: { _ in
       self.animator.stop()
     })
+  }
+
+  @inline(__always)
+  private func hasBGColor(_ view: UIView) -> Bool {
+    return view.backgroundColor != nil && view.backgroundColor != .clear
   }
 }

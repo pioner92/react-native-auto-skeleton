@@ -103,14 +103,4 @@ dependencies {
 }
 
 
-// if(isNewArchitectureEnabled()){
-//   react {
-//     jsRootDir = file("$projectDir/../src")
-//     libraryName = "AutoSkeletonView"
-//     codegenJavaPackageName = "com.autoskeleton"
-//   }
-//   sourceSets {
-//     main { java.srcDirs += ["build/generated/source/codegen/java"] }
-//   }
-// }
 

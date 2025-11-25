@@ -20,13 +20,13 @@ final class SkeletonPlaceholderMask {
 
   func applyMask() {
 
-    guard let targedDelegate = delegate else { return }
+    guard let targetDelegate = delegate else { return }
 
-    maskLayer.frame = targedDelegate.bounds
+    maskLayer.frame = targetDelegate.bounds
 
     let combinedPath = UIBezierPath()
 
-    for originalView in targedDelegate.views {
+    for originalView in targetDelegate.views {
       let convertedFrame = originalView.frame
 
       let radius = originalView.layer.cornerRadius > 0 ? originalView.layer.cornerRadius : defaultBorderRadius
@@ -39,6 +39,6 @@ final class SkeletonPlaceholderMask {
 
     maskLayer.path = combinedPath.cgPath
 
-    targedDelegate.mainLayer.mask = maskLayer
+    targetDelegate.mainLayer.mask = maskLayer
   }
 }

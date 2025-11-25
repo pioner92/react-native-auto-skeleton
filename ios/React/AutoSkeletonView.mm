@@ -99,6 +99,7 @@ using namespace facebook::react;
 - (void)layoutSubviews {
   [super layoutSubviews];
   _view.frame = self.bounds;
+  [_view subviewsUpdated];
 }
 
 Class<RCTComponentViewProtocol> AutoSkeletonViewCls(void) {

@@ -1,6 +1,5 @@
 package com.autoskeleton
 
-import AutoSkeletonIgnoreView
 import android.view.View
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.module.annotations.ReactModule

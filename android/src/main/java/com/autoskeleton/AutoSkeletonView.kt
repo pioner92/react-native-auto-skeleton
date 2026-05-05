@@ -6,13 +6,12 @@ import android.graphics.Color
 import android.graphics.LinearGradient
 import android.graphics.Paint
 import android.graphics.Shader
-import android.transition.Fade
-import android.transition.TransitionManager
 import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.LinearInterpolator
 import com.facebook.react.bridge.ReadableArray
+import java.util.WeakHashMap
 
 enum class AnimationTypes(val value: String) {
   GRADIENT("gradient"),
@@ -31,7 +30,7 @@ class AutoSkeletonView : ViewGroup {
 
   private var isLoading = false
   private var shimmerSpeed = 1.0f
-  private var radius = 10f
+  private var radius = 4f * resources.displayMetrics.density
 
   private var animationType = AnimationTypes.GRADIENT
 
@@ -43,6 +42,8 @@ class AutoSkeletonView : ViewGroup {
 
   private val paint = Paint(Paint.ANTI_ALIAS_FLAG)
   private var animationFraction = 0f
+  private val originalVisibility = WeakHashMap<View, Int>()
+  private val originalAlpha = WeakHashMap<View, Float>()
 
   private var animator: ValueAnimator? = null
 
@@ -80,15 +81,19 @@ class AutoSkeletonView : ViewGroup {
   }
 
   fun setGradientColors(value: ReadableArray?) {
-    if(value != null){
+    if (value != null && value.size() == 2) {
       colorA = value.getInt(0)
       colorB = value.getInt(1)
+    } else {
+      colorA = Color.LTGRAY
+      colorB = Color.WHITE
     }
+
     invalidate()
   }
 
   fun setDefaultRadius(value: Float) {
-    radius = value
+    radius = value * resources.displayMetrics.density
     invalidate()
   }
 
@@ -161,6 +166,9 @@ class AutoSkeletonView : ViewGroup {
   }
 
   override fun onViewRemoved(child: View) {
+    child.animate().cancel()
+    originalVisibility.remove(child)
+    originalAlpha.remove(child)
     super.onViewRemoved(child)
     requestLayout()
     invalidate()
@@ -173,12 +181,6 @@ class AutoSkeletonView : ViewGroup {
   override fun dispatchDraw(canvas: Canvas) {
     super.dispatchDraw(canvas)
 
-    if(!isLoading){
-      TransitionManager.beginDelayedTransition(this, Fade().apply {
-        duration = 800
-      })
-    }
-
     for (i in 0 until childCount) {
       val child = getChildAt(i)
 
@@ -189,19 +191,42 @@ class AutoSkeletonView : ViewGroup {
       }
 
       if(isLoading){
+        if (!originalVisibility.containsKey(child)) {
+          originalVisibility[child] = child.visibility
+          originalAlpha[child] = child.alpha
+        }
+
+        child.animate().cancel()
         child.visibility = INVISIBLE
         canvas.drawRoundRect(
           child.left.toFloat(),
           child.top.toFloat(),
           child.right.toFloat(),
           child.bottom.toFloat(),
-          radius * 2,
-          radius * 2,
+          radius,
+          radius,
           paint
         )
       }
       else {
-        child.visibility = VISIBLE
+        val visibility = originalVisibility.remove(child)
+        val alpha = originalAlpha.remove(child)
+
+        if (visibility != null) {
+          child.animate().cancel()
+          child.visibility = visibility
+
+          if (visibility == VISIBLE) {
+            val targetAlpha = alpha ?: 1f
+            child.alpha = 0f
+            child.animate()
+              .alpha(targetAlpha)
+              .setDuration(800)
+              .start()
+          } else if (alpha != null) {
+            child.alpha = alpha
+          }
+        }
       }
     }
   }

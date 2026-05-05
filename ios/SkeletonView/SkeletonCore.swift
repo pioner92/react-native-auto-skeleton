@@ -26,12 +26,23 @@ public class SkeletonCore: UIView, PlaceholderMaskDelegate, SkeletonAnimatableDe
   private let placeholderMask = SkeletonPlaceholderMask()
 
   private var animator: SkeletonAnimatable = AnimationGradient()
+  private var transitionGeneration = 0
+  private var appliedLoadingState: Bool?
+  private let hiddenViews = NSMapTable<UIView, NSNumber>(
+    keyOptions: .weakMemory,
+    valueOptions: .strongMemory
+  )
 
   public var isLoading: Bool = false {
     didSet {
-      DispatchQueue.main.async {
-        self.isLoading ? self.showPlaceholder() : self.hidePlaceholder()
+      guard Thread.isMainThread else {
+        DispatchQueue.main.async { [weak self] in
+          self?.applyLoadingState()
+        }
+        return
       }
+
+      applyLoadingState()
     }
   }
 
@@ -118,6 +129,7 @@ public class SkeletonCore: UIView, PlaceholderMaskDelegate, SkeletonAnimatableDe
     self.animator.stop()
     self.animator = animator
     self.animator.delegate = self
+    self.animator.duration = animationSpeed
 
     if(isLoading){
       self.animator.start()
@@ -143,24 +155,88 @@ public class SkeletonCore: UIView, PlaceholderMaskDelegate, SkeletonAnimatableDe
       }
       return false
     }
+
+    if isLoading {
+      hideOriginalViewsForSkeleton()
+      placeholderMask.applyMask()
+    }
+  }
+
+  private func hideOriginalViewsForSkeleton() {
+    views.forEach {
+      if hiddenViews.object(forKey: $0) == nil {
+        hiddenViews.setObject(NSNumber(value: $0.isHidden), forKey: $0)
+      }
+
+      $0.isHidden = true
+    }
+  }
+
+  private func restoreOriginalViews() {
+    let enumerator = hiddenViews.keyEnumerator()
+
+    while let view = enumerator.nextObject() as? UIView {
+      let wasHidden = hiddenViews.object(forKey: view)?.boolValue ?? false
+      view.isHidden = wasHidden
+    }
+
+    hiddenViews.removeAllObjects()
+  }
+
+  private func applyLoadingState() {
+    guard appliedLoadingState != isLoading else { return }
+
+    transitionGeneration += 1
+    let generation = transitionGeneration
+    appliedLoadingState = isLoading
+
+    layer.removeAllAnimations()
+    mainLayer.removeAllAnimations()
+    animator.stop()
+
+    if isLoading {
+      showPlaceholder(generation: generation)
+    } else {
+      hidePlaceholder(generation: generation)
+    }
   }
 
   func showPlaceholder() {
+    transitionGeneration += 1
+    appliedLoadingState = true
+    showPlaceholder(generation: transitionGeneration)
+  }
+
+  private func showPlaceholder(generation: Int) {
+    guard isLoading, generation == transitionGeneration else { return }
+
     mainLayer.isHidden = false
     placeholderMask.applyMask()
 
-    UIView.transition(with: self, duration: 0.2, options: [.transitionCrossDissolve], animations: {
-      self.views.forEach { $0.isHidden = true }
+    UIView.transition(with: self, duration: 0.2, options: [.transitionCrossDissolve, .beginFromCurrentState, .allowUserInteraction], animations: {
+      guard self.isLoading, generation == self.transitionGeneration else { return }
+      self.hideOriginalViewsForSkeleton()
     }, completion: { _ in
+      guard self.isLoading, generation == self.transitionGeneration else { return }
       self.animator.start()
     })
   }
 
   func hidePlaceholder() {
-    UIView.transition(with: self, duration: 0.2, options: [.transitionCrossDissolve], animations: {
+    transitionGeneration += 1
+    appliedLoadingState = false
+    hidePlaceholder(generation: transitionGeneration, force: true)
+  }
+
+  private func hidePlaceholder(generation: Int, force: Bool = false) {
+    guard (!isLoading || force), generation == transitionGeneration else { return }
+
+    UIView.transition(with: self, duration: 0.2, options: [.transitionCrossDissolve, .beginFromCurrentState, .allowUserInteraction], animations: {
+      guard (!self.isLoading || force), generation == self.transitionGeneration else { return }
       self.mainLayer.isHidden = true
-      self.views.forEach { $0.isHidden = false }
+      self.restoreOriginalViews()
     }, completion: { _ in
+      guard (!self.isLoading || force), generation == self.transitionGeneration else { return }
       self.animator.stop()
     })
   }

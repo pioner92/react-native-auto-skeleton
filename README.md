@@ -126,6 +126,8 @@ export default function App() {
 ```
 
 ## API
+
+### AutoSkeletonView
 | Prop | type | Description |
 |---|---|---|
 | **isLoading** | boolean | Enables or disables the skeleton state|
@@ -134,6 +136,9 @@ export default function App() {
 | **gradientColors** | [string,string] | Gradient colors for the skeleton gradient |
 | **defaultRadius** | number | Default corner radius for skeleton elements that don't have a defined `borderRadius` |   |
 | **animationType** | `"gradient"` \| `"pulse"` \| `"none"` | Skeleton animation |   |
+
+### AutoSkeletonIgnoreView
+Wrap any subtree with this component to exclude it from skeleton rendering. Children will remain visible while the skeleton is active.
 
 ## Best Practices
 

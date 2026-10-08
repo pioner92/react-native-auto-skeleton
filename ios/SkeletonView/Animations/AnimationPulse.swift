@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 private let ANIMATION_NAME = "animationPulse"
 

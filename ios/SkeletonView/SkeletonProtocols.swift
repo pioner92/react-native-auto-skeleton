@@ -5,6 +5,8 @@
 //  Created by Oleksandr Shumihin on 30/3/25.
 //
 
+import UIKit
+
 protocol SkeletonRenderable: AnyObject {
   var mainLayer: CAShapeLayer { get set }
 }

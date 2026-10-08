@@ -102,6 +102,12 @@ using namespace facebook::react;
   [_view subviewsUpdated];
 }
 
+- (void)unmountChildComponentView:(UIView<RCTComponentViewProtocol>*)childComponentView
+                            index:(NSInteger)index {
+  [_view restoreOriginalView:childComponentView];
+  [super unmountChildComponentView:childComponentView index:index];
+}
+
 Class<RCTComponentViewProtocol> AutoSkeletonViewCls(void) {
   return AutoSkeletonView.class;
 }

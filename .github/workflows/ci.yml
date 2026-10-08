@@ -163,3 +163,28 @@ jobs:
       - name: Build example for iOS
         run: |
           yarn turbo run build:ios --cache-dir="${{ env.TURBO_CACHE_DIR }}"
+
+  test-ios:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup
+        uses: ./.github/actions/setup
+
+      - name: Pick an iPhone simulator
+        run: |
+          UDID=$(xcrun simctl list devices available | grep -m1 -oE 'iPhone[^(]*\([0-9A-F-]{36}\)' | grep -oE '[0-9A-F-]{36}')
+          echo "IOS_DESTINATION=id=$UDID" >> "$GITHUB_ENV"
+
+      - name: Run Swift core tests
+        run: yarn test:ios
+
+      - name: Install cocoapods
+        run: |
+          cd example/ios
+          pod install
+
+      - name: Run native tests hosted in the example app
+        run: yarn test:ios:example

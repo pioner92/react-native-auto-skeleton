@@ -25,6 +25,12 @@ target 'AutoSkeletonExample' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
+  # Native tests hosted in the example app, so they run against the real React and codegen pods.
+  # Headers only: linking the pods again would duplicate every class already in the host app.
+  target 'AutoSkeletonExampleTests' do
+    inherit! :search_paths
+  end
+
 
   # Run Codegen during development for the example app.
   pre_install do |installer|

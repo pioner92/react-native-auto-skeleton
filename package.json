@@ -30,6 +30,8 @@
   "scripts": {
     "example": "yarn workspace react-native-auto-skeleton-example",
     "test": "jest",
+    "test:ios": "cd ios-tests && xcodebuild test -scheme AutoSkeletonNativeTests-Package -destination \"${IOS_DESTINATION:-platform=iOS Simulator,name=iPhone 17 Pro Max}\"",
+    "test:ios:example": "cd example/ios && xcodebuild test -workspace AutoSkeletonExample.xcworkspace -scheme AutoSkeletonExample -configuration Debug -sdk iphonesimulator -destination \"${IOS_DESTINATION:-platform=iOS Simulator,name=iPhone 17 Pro Max}\" RCT_METRO_PORT=${RCT_METRO_PORT:-8081}",
     "typecheck": "tsc",
     "lint": "eslint \"**/*.{js,ts,tsx}\"",
     "clean": "del-cli android/build example/android/build example/android/app/build example/ios/build lib",
@@ -90,6 +92,7 @@
     "@release-it/conventional-changelog": "^9.0.2",
     "@types/jest": "^29.5.5",
     "@types/react": "^18.2.44",
+    "@types/react-test-renderer": "19.0.0",
     "commitlint": "^19.6.1",
     "del-cli": "^5.1.0",
     "eslint": "^8.51.0",
@@ -100,6 +103,7 @@
     "react": "19.0.0",
     "react-native": "0.78.1",
     "react-native-builder-bob": "^0.36.0",
+    "react-test-renderer": "19.0.0",
     "release-it": "^17.10.0",
     "turbo": "^1.10.7",
     "typescript": "^5.2.2"
@@ -205,6 +209,12 @@
     "name": "RNAutoSkeletonViewSpec",
     "type": "components",
     "jsSrcsDir": "src",
+    "ios": {
+      "componentProvider": {
+        "AutoSkeletonView": "AutoSkeletonView",
+        "AutoSkeletonIgnoreView": "AutoSkeletonIgnoreView"
+      }
+    },
     "android": {
       "javaPackageName": "com.autoskeleton"
     }

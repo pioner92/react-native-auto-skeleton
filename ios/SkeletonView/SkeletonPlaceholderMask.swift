@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 final class SkeletonPlaceholderMask {
   weak var delegate: PlaceholderMaskDelegate?
@@ -27,7 +28,8 @@ final class SkeletonPlaceholderMask {
     let combinedPath = UIBezierPath()
 
     for originalView in targetDelegate.views {
-      let convertedFrame = originalView.frame
+      // `frame` is in the parent's coordinates, which differ from ours for nested views.
+      let convertedFrame = originalView.convert(originalView.bounds, to: targetDelegate)
 
       let radius = originalView.layer.cornerRadius > 0 ? originalView.layer.cornerRadius : defaultBorderRadius
 

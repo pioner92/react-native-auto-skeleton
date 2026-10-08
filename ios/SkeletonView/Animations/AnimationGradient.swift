@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 private let ANIMATION_NAME = "alphaGradientAnimation"
 
@@ -41,7 +42,9 @@ final class AnimationGradient: AnimationBase {
 
     gradientLayer.frame = delegate?.mainLayer.bounds ?? .zero
 
-    let colors = delegate?.gradientColors ?? DEFAULT_GRADIENT_COLORS
+    // A color that fails native conversion is dropped, so the array can arrive short.
+    let delegateColors = delegate?.gradientColors ?? []
+    let colors = delegateColors.count >= 2 ? delegateColors : DEFAULT_GRADIENT_COLORS
 
     animation.fromValue = [
       colors[0].cgColor,

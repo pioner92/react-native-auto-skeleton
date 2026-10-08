@@ -38,6 +38,16 @@
                ReferencedContainer = "container:AutoSkeletonExample.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "913176E6D028B29379806C68"
+               BuildableName = "AutoSkeletonExampleTests.xctest"
+               BlueprintName = "AutoSkeletonExampleTests"
+               ReferencedContainer = "container:AutoSkeletonExample.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

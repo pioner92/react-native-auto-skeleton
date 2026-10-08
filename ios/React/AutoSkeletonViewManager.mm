@@ -41,8 +41,9 @@ RCT_CUSTOM_VIEW_PROPERTY(shimmerBackgroundColor, UIColor, SkeletonViewOldArch) {
   view.shapesBackgroundColor = uiColor;
 }
 
+// `UIColorArray` makes the Old Arch view config run processColorArray on the JS side.
 RCT_CUSTOM_VIEW_PROPERTY(gradientColors,
-                         NSArray<UIColor>,
+                         UIColorArray,
                          SkeletonViewOldArch) {
   NSArray<UIColor*>* colors = [RCTConvert UIColorArray:json];
 

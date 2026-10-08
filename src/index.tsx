@@ -1,8 +1,7 @@
 // export { default as AutoSkeletonView } from './AutoSkeletonViewNativeComponent';
 export { default as AutoSkeletonIgnoreView } from './AutoSkeletonIgnoreViewNativeComponent';
-import { ColorValue, Platform, processColor } from 'react-native';
+import type { ColorValue } from 'react-native';
 import { default as AutoSkeletonView__ } from './AutoSkeletonViewNativeComponent';
-import { useMemo } from 'react';
 import React from 'react';
 
 interface IProps {
@@ -63,21 +62,10 @@ const DEFAULT_ANIMATION_DURATION = 1.0; // seconds
 
 export const AutoSkeletonView: React.FC<React.PropsWithChildren<IProps>> =
   React.memo((props) => {
-    const gColors = useMemo(() => {
-      //@ts-ignore
-      if (Platform.OS === 'ios' && global._IS_FABRIC === false) {
-        return (props.gradientColors ?? DEFAULT_GRADIENT_COLORS).map((color) =>
-          processColor(color)
-        ) as ColorValue[];
-      }
-
-      return props.gradientColors ?? DEFAULT_GRADIENT_COLORS;
-    }, [props.gradientColors]);
-
     return (
       <AutoSkeletonView__
         {...props}
-        gradientColors={gColors}
+        gradientColors={props.gradientColors ?? DEFAULT_GRADIENT_COLORS}
         shimmerBackgroundColor={props.shimmerBackgroundColor ?? '#CECECE'}
         defaultRadius={props.defaultRadius ?? DEFAULT_BORDER_RADIUS}
         shimmerSpeed={props.shimmerSpeed ?? DEFAULT_ANIMATION_DURATION}

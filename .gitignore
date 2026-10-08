@@ -12,6 +12,8 @@ jsconfig.json
 # Xcode
 #
 build/
+ios-tests/.build/
+ios-tests/.swiftpm/
 *.pbxuser
 !default.pbxuser
 *.mode1v3

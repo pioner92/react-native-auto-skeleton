@@ -183,6 +183,16 @@ public class SkeletonCore: UIView, PlaceholderMaskDelegate, SkeletonAnimatableDe
     hiddenViews.removeAllObjects()
   }
 
+  // Fabric recycles unmounted views without resetting `isHidden`, so restore before the view leaves.
+  public func restoreOriginalView(_ view: UIView) {
+    views.removeAll { $0 === view }
+
+    guard let wasHidden = hiddenViews.object(forKey: view) else { return }
+
+    view.isHidden = wasHidden.boolValue
+    hiddenViews.removeObject(forKey: view)
+  }
+
   private func applyLoadingState() {
     guard appliedLoadingState != isLoading else { return }
 

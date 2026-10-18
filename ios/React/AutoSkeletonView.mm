@@ -16,7 +16,7 @@
 #import <React/RCTUIManager.h>
 #import <React/RCTViewManager.h>
 #import <react/renderer/graphics/Color.h>
-#import "RCTBridge.h"
+#import <React/RCTBridge.h>
 
 using namespace facebook::react;
 
